@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              accent: "#6366F1",
+              "accent-dark": "#4F46E5",
+              beige: "#F5F5DC",
+              "beige-dark": "#E6E6CD",
+            },
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              lora: ["Lora", "serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Rich text editor styles */
+      #blogContentEditor {
+        min-height: 300px;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
+      #blogContentEditor:empty:before {
+        content: "Viết nội dung bài blog của bạn...";
+        color: #9ca3af;
+        font-style: italic;
+      }
+
+      /* Ensure proper styling for editor content */
+      #blogContentEditor h1,
+      #blogContentEditor h2,
+      #blogContentEditor h3,
+      #blogContentEditor h4 {
+        font-weight: bold;
+        margin: 1rem 0;
+      }
+
+      #blogContentEditor h1 {
+        font-size: 1.875rem;
+      }
+      #blogContentEditor h2 {
+        font-size: 1.5rem;
+      }
+      #blogContentEditor h3 {
+        font-size: 1.25rem;
+      }
+      #blogContentEditor h4 {
+        font-size: 1.125rem;
+      }
+
+      #blogContentEditor blockquote {
+        border-left: 4px solid #6366f1;
+        padding-left: 1rem;
+        font-style: italic;
+        margin: 1rem 0;
+        background-color: rgba(99, 102, 241, 0.05);
+        padding: 1rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
+
+      #blogContentEditor a {
+        color: #6366f1;
+        text-decoration: underline;
+      }
+
+      #blogContentEditor a:hover {
+        color: #4f46e5;
+      }
+
+      #blogContentEditor img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin: 1rem auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+    id="body"
+  >
+    <!-- Header -->
+    <header
+      class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-sm"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <h1
+              class="text-xl font-bold text-gray-900 dark:text-white cursor-pointer"
+              onclick="showHome()"
+            >
+              My Blog
+            </h1>
+          </div>
+
+          <!-- Center - Search Bar -->
+          <div class="hidden md:flex flex-1 max-w-md mx-8">
+            <div class="relative w-full">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Tìm kiếm bài viết..."
+                class="w-full px-4 py-2 pl-10 pr-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+              <i
+                class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              ></i>
+              <div
+                id="searchResults"
+                class="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg mt-1 shadow-lg hidden max-h-60 overflow-y-auto z-50"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Right Controls -->
+          <div class="flex items-center space-x-4">
+            <!-- Font Selector -->
+            <div class="relative">
+              <select
+                id="fontSelector"
+                class="text-sm bg-transparent border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-gray-700 dark:text-gray-300"
+              >
+                <option value="inter">Inter</option>
+                <option value="lora">Lora</option>
+                <option value="mono">Mono</option>
+              </select>
+            </div>
+
+            <!-- Dark/Light Toggle -->
+            <button
+              id="themeToggle"
+              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
+            </button>
+
+            <!-- User Menu -->
+            <div id="userMenu" class="hidden relative">
+              <button
+                id="userMenuButton"
+                class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <img
+                  id="userAvatar"
+                  src=""
+                  alt="User"
+                  class="w-8 h-8 rounded-full"
+                />
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div
+                id="userDropdown"
+                class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden"
+              >
+                <a
+                  href="#"
+                  onclick="showProfile()"
+                  class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >Hồ sơ</a
+                >
+                <a
+                  href="#"
+                  onclick="showCreateBlog()"
+                  class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >Viết blog</a
+                >
+                <hr class="border-gray-200 dark:border-gray-700" />
+                <a
+                  href="#"
+                  onclick="logout()"
+                  class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >Đăng xuất</a
+                >
+              </div>
+            </div>
+
+            <!-- Login Button -->
+            <button
+              id="loginBtn"
+              onclick="showLogin()"
+              class="text-sm bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              Đăng nhập
+            </button>
+
+            <!-- Social Links -->
+            <div
+              id="headerSocialLinks"
+              class="hidden lg:flex items-center space-x-3"
+            >
+              <!-- Social links will be rendered here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Home Page -->
+      <div id="homePage" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Blog List -->
+        <div class="lg:col-span-2">
+          <h2 class="text-2xl font-bold mb-6">Bài viết mới nhất</h2>
+          <div id="blogList" class="space-y-6">
+            <!-- Blog posts will be rendered here -->
+          </div>
+
+          <!-- Pagination -->
+          <div id="pagination" class="flex justify-center mt-8 space-x-2">
+            <!-- Pagination buttons will be rendered here -->
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 sticky top-24">
+            <!-- About Me -->
+            <div class="text-center mb-6">
+              <img
+                id="profileImg"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%236366F1'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='30' fill='white'%3EMB%3C/text%3E%3C/svg%3E"
+                alt="Profile"
+                class="w-24 h-24 rounded-full mx-auto mb-4"
+              />
+              <h3 id="profileName" class="text-xl font-semibold mb-2">
+                My Blog
+              </h3>
+              <p
+                id="profileBio"
+                class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4"
+              >
+                Chào mừng đến với blog cá nhân của tôi! Nơi tôi chia sẻ những
+                suy nghĩ, trải nghiệm và kiến thức về cuộc sống.
+              </p>
+
+              <!-- Social Links -->
+              <div
+                id="sidebarSocialLinks"
+                class="flex justify-center space-x-4 mb-4"
+              >
+                <!-- Social links will be rendered here -->
+              </div>
+
+              <!-- Contact Button -->
+              <button
+                class="bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors text-sm"
+              >
+                <i class="fas fa-envelope mr-2"></i>Liên hệ
+              </button>
+
+              <!-- Admin Controls -->
+              <div id="adminControls" class="hidden mt-4 space-y-2">
+                <button
+                  onclick="showProfile()"
+                  class="w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm"
+                >
+                  Chỉnh sửa hồ sơ
+                </button>
+                <button
+                  onclick="showCreateBlog()"
+                  class="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-dark transition-colors text-sm"
+                >
+                  Viết blog mới
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Detail Page -->
+      <div id="blogDetailPage" class="hidden max-w-4xl mx-auto">
+        <article
+          id="blogContent"
+          class="prose prose-lg dark:prose-invert max-w-none"
+        >
+          <!-- Blog content will be rendered here -->
+        </article>
+
+        <!-- Navigation -->
+        <div
+          class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
+        >
+          <button
+            id="prevBlog"
+            class="flex items-center text-accent hover:text-accent-dark disabled:text-gray-400 disabled:cursor-not-allowed"
+          >
+            <i class="fas fa-chevron-left mr-2"></i>Bài trước
+          </button>
+          <button
+            onclick="showHome()"
+            class="text-gray-600 dark:text-gray-400 hover:text-accent"
+          >
+            <i class="fas fa-home mr-2"></i>Trang chủ
+          </button>
+          <button
+            id="nextBlog"
+            class="flex items-center text-accent hover:text-accent-dark disabled:text-gray-400 disabled:cursor-not-allowed"
+          >
+            Bài sau<i class="fas fa-chevron-right ml-2"></i>
+          </button>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-semibold mb-6">Bình luận</h3>
+
+          <!-- Comment Form -->
+          <form id="commentForm" class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                id="commentName"
+                placeholder="Tên của bạn"
+                required
+                class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+              <input
+                type="email"
+                id="commentEmail"
+                placeholder="Email (không hiển thị)"
+                required
+                class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+            <textarea
+              id="commentContent"
+              rows="4"
+              placeholder="Viết bình luận của bạn..."
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent mb-4"
+            ></textarea>
+            <button
+              type="submit"
+              class="bg-accent text-white px-6 py-2 rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>Gửi bình luận
+            </button>
+          </form>
+
+          <!-- Comments List -->
+          <div id="commentsList" class="space-y-6">
+            <!-- Comments will be rendered here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- About Me Page -->
+      <div id="aboutPage" class="hidden max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <img
+            id="aboutProfileImg"
+            src=""
+            alt="Profile"
+            class="w-32 h-32 rounded-full mx-auto mb-6"
+          />
+          <h1 id="aboutProfileName" class="text-3xl font-bold mb-4"></h1>
+          <p
+            id="aboutProfileBio"
+            class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto"
+          ></p>
+        </div>
+
+        <!-- Social Links -->
+        <div
+          id="aboutSocialLinks"
+          class="flex justify-center flex-wrap gap-4 mb-8"
+        >
+          <!-- Social links will be rendered here -->
+        </div>
+
+        <!-- Admin Edit Button -->
+        <div id="editProfileBtn" class="hidden text-center">
+          <button
+            onclick="showProfileEdit()"
+            class="bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent-dark transition-colors"
+          >
+            <i class="fas fa-edit mr-2"></i>Chỉnh sửa hồ sơ
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile Edit Page -->
+      <div id="profileEditPage" class="hidden max-w-2xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6">Chỉnh sửa hồ sơ</h2>
+        <form id="profileForm" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">Ảnh đại diện</label>
+            <input
+              type="file"
+              id="profileImageInput"
+              accept="image/*"
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-accent file:text-white hover:file:bg-accent-dark"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Tên hiển thị</label>
+            <input
+              type="text"
+              id="nameInput"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Giới thiệu</label>
+            <textarea
+              id="bioInput"
+              rows="4"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-4"
+              >Liên kết cá nhân</label
+            >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-facebook-f mr-1"></i>Facebook
+                </label>
+                <input
+                  type="url"
+                  id="facebookInput"
+                  placeholder="https://facebook.com/username"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-instagram mr-1"></i>Instagram
+                </label>
+                <input
+                  type="url"
+                  id="instagramInput"
+                  placeholder="https://instagram.com/username"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-youtube mr-1"></i>YouTube
+                </label>
+                <input
+                  type="url"
+                  id="youtubeInput"
+                  placeholder="https://youtube.com/channel"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-twitter mr-1"></i>Twitter
+                </label>
+                <input
+                  type="url"
+                  id="twitterInput"
+                  placeholder="https://twitter.com/username"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-linkedin mr-1"></i>LinkedIn
+                </label>
+                <input
+                  type="url"
+                  id="linkedinInput"
+                  placeholder="https://linkedin.com/in/username"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fab fa-github mr-1"></i>GitHub
+                </label>
+                <input
+                  type="url"
+                  id="githubInput"
+                  placeholder="https://github.com/username"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fas fa-globe mr-1"></i>Website
+                </label>
+                <input
+                  type="url"
+                  id="websiteInput"
+                  placeholder="https://yourwebsite.com"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
+                >
+                  <i class="fas fa-envelope mr-1"></i>Email
+                </label>
+                <input
+                  type="email"
+                  id="emailInput"
+                  placeholder="contact@yourdomain.com"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex space-x-4">
+            <button
+              type="submit"
+              class="bg-accent text-white py-2 px-6 rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              Lưu thay đổi
+            </button>
+            <button
+              type="button"
+              onclick="showAbout()"
+              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Create Blog Page -->
+      <div id="createBlogPage" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6">Viết bài mới</h2>
+        <form id="createBlogForm" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">Tiêu đề</label>
+            <input
+              type="text"
+              id="blogTitle"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Mô tả ngắn</label>
+            <textarea
+              id="blogDescription"
+              rows="3"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Ảnh bìa</label>
+            <input
+              type="file"
+              id="blogImageInput"
+              accept="image/*"
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-accent file:text-white hover:file:bg-accent-dark"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Nội dung</label>
+            <div class="border border-gray-300 dark:border-gray-600 rounded-lg">
+              <!-- Rich Text Editor Toolbar -->
+              <div
+                class="border-b border-gray-300 dark:border-gray-600 p-2 flex flex-wrap gap-2"
+              >
+                <!-- Font Style -->
+                <select
+                  id="fontFamilySelect"
+                  onchange="changeFontFamily()"
+                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
+                >
+                  <option value="Arial">Arial</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Helvetica">Helvetica</option>
+                  <option value="Verdana">Verdana</option>
+                </select>
+
+                <!-- Font Size -->
+                <select
+                  id="fontSizeSelect"
+                  onchange="changeFontSize()"
+                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
+                >
+                  <option value="12px">12px</option>
+                  <option value="14px">14px</option>
+                  <option value="16px" selected>16px</option>
+                  <option value="18px">18px</option>
+                  <option value="20px">20px</option>
+                  <option value="24px">24px</option>
+                  <option value="32px">32px</option>
+                </select>
+
+                <!-- Text Color -->
+                <input
+                  type="color"
+                  id="textColorPicker"
+                  onchange="changeTextColor()"
+                  class="w-8 h-8 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                  value="#000000"
+                />
+
+                <!-- Background Color -->
+                <input
+                  type="color"
+                  id="bgColorPicker"
+                  onchange="changeBackgroundColor()"
+                  class="w-8 h-8 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                  value="#ffffff"
+                />
+
+                <div
+                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
+                ></div>
+
+                <!-- Format Buttons -->
+                <button
+                  type="button"
+                  onclick="formatText('bold')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Bold"
+                >
+                  <i class="fas fa-bold"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('italic')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Italic"
+                >
+                  <i class="fas fa-italic"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('underline')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Underline"
+                >
+                  <i class="fas fa-underline"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('strikeThrough')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Strikethrough"
+                >
+                  <i class="fas fa-strikethrough"></i>
+                </button>
+
+                <div
+                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
+                ></div>
+
+                <!-- Alignment -->
+                <button
+                  type="button"
+                  onclick="formatText('justifyLeft')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Align Left"
+                >
+                  <i class="fas fa-align-left"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('justifyCenter')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Align Center"
+                >
+                  <i class="fas fa-align-center"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('justifyRight')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Align Right"
+                >
+                  <i class="fas fa-align-right"></i>
+                </button>
+
+                <div
+                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
+                ></div>
+
+                <!-- Lists -->
+                <button
+                  type="button"
+                  onclick="formatText('insertUnorderedList')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Bullet List"
+                >
+                  <i class="fas fa-list-ul"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="formatText('insertOrderedList')"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Numbered List"
+                >
+                  <i class="fas fa-list-ol"></i>
+                </button>
+
+                <div
+                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
+                ></div>
+
+                <!-- Special Elements -->
+                <button
+                  type="button"
+                  onclick="insertQuote()"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Quote"
+                >
+                  <i class="fas fa-quote-left"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="insertLink()"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Insert Link"
+                >
+                  <i class="fas fa-link"></i>
+                </button>
+                <button
+                  type="button"
+                  onclick="insertImage()"
+                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  title="Insert Image"
+                >
+                  <i class="fas fa-image"></i>
+                </button>
+
+                <div
+                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
+                ></div>
+
+                <!-- Headings -->
+                <select
+                  onchange="insertHeading(this.value)"
+                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
+                >
+                  <option value="">Heading</option>
+                  <option value="h1">H1</option>
+                  <option value="h2">H2</option>
+                  <option value="h3">H3</option>
+                  <option value="h4">H4</option>
+                </select>
+              </div>
+              <div
+                id="blogContentEditor"
+                contenteditable="true"
+                class="p-4 min-h-64 focus:outline-none bg-white dark:bg-gray-800"
+                placeholder="Viết nội dung bài blog của bạn..."
+              ></div>
+            </div>
+          </div>
+
+          <div class="flex space-x-4">
+            <button
+              type="button"
+              onclick="saveDraft()"
+              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              <i class="fas fa-save mr-2"></i>Lưu nháp
+            </button>
+            <button
+              type="submit"
+              class="bg-accent text-white py-2 px-6 rounded-lg hover:bg-accent-dark transition-colors"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>Đăng bài
+            </button>
+            <button
+              type="button"
+              onclick="showHome()"
+              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Login/Register Page -->
+      <div id="loginPage" class="hidden max-w-md mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 id="authTitle" class="text-2xl font-bold text-center mb-6">
+            Đăng nhập
+          </h2>
+
+          <form id="authForm">
+            <div id="registerFields" class="hidden space-y-4 mb-4">
+              <input
+                type="text"
+                id="registerName"
+                placeholder="Tên đầy đủ"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+
+            <div class="space-y-4 mb-6">
+              <input
+                type="email"
+                id="authEmail"
+                placeholder="Email"
+                required
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+              <input
+                type="password"
+                id="authPassword"
+                placeholder="Mật khẩu"
+                required
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="authSubmit"
+              class="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-dark transition-colors mb-4"
+            >
+              Đăng nhập
+            </button>
+          </form>
+
+          <div class="text-center">
+            <button
+              id="authToggle"
+              onclick="toggleAuthMode()"
+              class="text-accent hover:text-accent-dark text-sm"
+            >
+              Chưa có tài khoản? Đăng ký ngay
+            </button>
+          </div>
+
+          <div class="text-center mt-4">
+            <button
+              onclick="showHome()"
+              class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-sm"
+            >
+              ← Quay lại trang chủ
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Global State
+      let currentUser = null;
+      let isLoginMode = true;
+      let currentBlogId = null;
+      let currentPage = 1;
+      const blogsPerPage = 5;
+
+      // Sample Data
+      let blogs = [
+        {
+          id: 1,
+          title: "Khám phá sức mạnh của Minimalism",
+          description:
+            "Minimalism không chỉ là về việc sở hữu ít đồ đạc, mà còn là triết lý sống giúp chúng ta tập trung vào những gì thực sự quan trọng.",
+          content: `<h1>Khám phá sức mạnh của Minimalism</h1>
+                         <p>Trong thế giới hiện đại đầy ắp những thứ không cần thiết, minimalism đã trở thành một xu hướng sống được nhiều người quan tâm...</p>
+                         <blockquote>"Sự đơn giản là sự tinh tế tối thượng" - Leonardo da Vinci</blockquote>
+                         <p>Minimalism giúp chúng ta loại bỏ những thứ không cần thiết để tập trung vào những gì thực sự mang lại giá trị cho cuộc sống.</p>`,
+          image:
+            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23F3F4F6'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%23374151'%3EMinimalism%3C/text%3E%3C/svg%3E",
+          date: "15 tháng 12, 2024",
+          readTime: "5 phút đọc",
+          comments: [
+            {
+              id: 1,
+              name: "Minh Anh",
+              content:
+                "Bài viết rất hay! Mình đã áp dụng minimalism và cảm thấy cuộc sống nhẹ nhàng hơn nhiều.",
+              date: "16 tháng 12, 2024",
+              pinned: false,
+            },
+          ],
+        },
+        {
+          id: 2,
+          title: "Hành trình học lập trình từ con số 0",
+          description:
+            "Chia sẻ kinh nghiệm học lập trình từ những ngày đầu không biết gì đến khi có thể tự tin làm việc với code.",
+          content: `<h1>Hành trình học lập trình từ con số 0</h1>
+                         <p>Cách đây 2 năm, tôi là một người hoàn toàn không biết gì về lập trình. Hôm nay, tôi muốn chia sẻ hành trình đó với các bạn...</p>
+                         <h2>Những ngày đầu khó khăn</h2>
+                         <p>Việc học lập trình không hề dễ dàng. Có những lúc tôi muốn bỏ cuộc vì cảm thấy mọi thứ quá phức tạp...</p>`,
+          image:
+            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23EFF6FF'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%233B82F6'%3ECoding%3C/text%3E%3C/svg%3E",
+          date: "10 tháng 12, 2024",
+          readTime: "8 phút đọc",
+          comments: [],
+        },
+      ];
+
+      let profile = {
+        name: "My Blog",
+        bio: "Chào mừng đến với blog cá nhân của tôi! Nơi tôi chia sẻ những suy nghĩ, trải nghiệm và kiến thức về cuộc sống.",
+        image:
+          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%236366F1'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='30' fill='white'%3EMB%3C/text%3E%3C/svg%3E",
+        socialLinks: {
+          facebook: "https://facebook.com/myblog",
+          instagram: "https://instagram.com/myblog",
+          youtube: "https://youtube.com/myblog",
+          twitter: "https://twitter.com/myblog",
+          linkedin: "https://linkedin.com/in/myblog",
+          github: "https://github.com/myblog",
+          website: "https://myblog.com",
+          email: "contact@myblog.com",
+        },
+      };
+
+      // Theme Management
+      function initTheme() {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        if (savedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+          document.getElementById("themeToggle").innerHTML =
+            '<i class="fas fa-sun text-gray-600 dark:text-gray-300"></i>';
+        }
+      }
+
+      function toggleTheme() {
+        const html = document.documentElement;
+        const themeToggle = document.getElementById("themeToggle");
+
+        if (html.classList.contains("dark")) {
+          html.classList.remove("dark");
+          themeToggle.innerHTML =
+            '<i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>';
+          localStorage.setItem("theme", "light");
+        } else {
+          html.classList.add("dark");
+          themeToggle.innerHTML =
+            '<i class="fas fa-sun text-gray-600 dark:text-gray-300"></i>';
+          localStorage.setItem("theme", "dark");
+        }
+      }
+
+      // Font Management
+      function initFont() {
+        const savedFont = localStorage.getItem("font") || "inter";
+        document.getElementById("fontSelector").value = savedFont;
+        applyFont(savedFont);
+      }
+
+      function applyFont(fontFamily) {
+        const body = document.getElementById("body");
+        body.className = body.className.replace(/font-\w+/g, "");
+        body.classList.add(`font-${fontFamily}`);
+        localStorage.setItem("font", fontFamily);
+      }
+
+      // Search Functionality
+      function initSearch() {
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+
+        searchInput.addEventListener("input", function (e) {
+          const query = e.target.value.toLowerCase().trim();
+
+          if (query.length < 2) {
+            searchResults.classList.add("hidden");
+            return;
+          }
+
+          const filteredBlogs = blogs.filter(
+            (blog) =>
+              blog.title.toLowerCase().includes(query) ||
+              blog.description.toLowerCase().includes(query)
+          );
+
+          if (filteredBlogs.length > 0) {
+            searchResults.innerHTML = filteredBlogs
+              .map(
+                (blog) => `
+                        <div class="p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b border-gray-100 dark:border-gray-600 last:border-b-0" onclick="showBlogDetail(${
+                          blog.id
+                        })">
+                            <h4 class="font-medium text-sm">${blog.title}</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">${blog.description.substring(
+                              0,
+                              80
+                            )}...</p>
+                        </div>
+                    `
+              )
+              .join("");
+            searchResults.classList.remove("hidden");
+          } else {
+            searchResults.innerHTML =
+              '<div class="p-3 text-sm text-gray-500 dark:text-gray-400">Không tìm thấy kết quả</div>';
+            searchResults.classList.remove("hidden");
+          }
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener("click", function (e) {
+          if (
+            !searchInput.contains(e.target) &&
+            !searchResults.contains(e.target)
+          ) {
+            searchResults.classList.add("hidden");
+          }
+        });
+      }
+
+      // Navigation Functions
+      function showHome() {
+        hideAllPages();
+        document.getElementById("homePage").classList.remove("hidden");
+        renderBlogs();
+      }
+
+      function showBlogDetail(blogId) {
+        const blog = blogs.find((b) => b.id === blogId);
+        if (!blog) return;
+
+        currentBlogId = blogId;
+        hideAllPages();
+        document.getElementById("blogDetailPage").classList.remove("hidden");
+
+        document.getElementById("blogContent").innerHTML = `
+                <div class="mb-8">
+                    <img src="${blog.image}" alt="${blog.title}" class="w-full h-64 object-cover rounded-lg mb-6">
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <span>${blog.date}</span>
+                        <span class="mx-2">•</span>
+                        <span>${blog.readTime}</span>
+                    </div>
+                </div>
+                ${blog.content}
+            `;
+
+        renderComments(blog.comments);
+        updateBlogNavigation(blogId);
+      }
+
+      function showAbout() {
+        hideAllPages();
+        document.getElementById("aboutPage").classList.remove("hidden");
+        updateAboutPage();
+      }
+
+      function showProfile() {
+        showAbout();
+      }
+
+      function showProfileEdit() {
+        if (!currentUser) return;
+        hideAllPages();
+        document.getElementById("profileEditPage").classList.remove("hidden");
+
+        document.getElementById("nameInput").value = profile.name;
+        document.getElementById("bioInput").value = profile.bio;
+
+        // Load social links
+        document.getElementById("facebookInput").value =
+          profile.socialLinks.facebook || "";
+        document.getElementById("instagramInput").value =
+          profile.socialLinks.instagram || "";
+        document.getElementById("youtubeInput").value =
+          profile.socialLinks.youtube || "";
+        document.getElementById("twitterInput").value =
+          profile.socialLinks.twitter || "";
+        document.getElementById("linkedinInput").value =
+          profile.socialLinks.linkedin || "";
+        document.getElementById("githubInput").value =
+          profile.socialLinks.github || "";
+        document.getElementById("websiteInput").value =
+          profile.socialLinks.website || "";
+        document.getElementById("emailInput").value =
+          profile.socialLinks.email || "";
+      }
+
+      function showCreateBlog() {
+        if (!currentUser) return;
+        hideAllPages();
+        document.getElementById("createBlogPage").classList.remove("hidden");
+      }
+
+      function showLogin() {
+        hideAllPages();
+        document.getElementById("loginPage").classList.remove("hidden");
+      }
+
+      function hideAllPages() {
+        const pages = [
+          "homePage",
+          "blogDetailPage",
+          "aboutPage",
+          "profileEditPage",
+          "createBlogPage",
+          "loginPage",
+        ];
+        pages.forEach((pageId) => {
+          document.getElementById(pageId).classList.add("hidden");
+        });
+      }
+
+      // Render Functions
+      function renderBlogs() {
+        const startIndex = (currentPage - 1) * blogsPerPage;
+        const endIndex = startIndex + blogsPerPage;
+        const paginatedBlogs = blogs.slice(startIndex, endIndex);
+
+        const blogList = document.getElementById("blogList");
+
+        if (paginatedBlogs.length === 0) {
+          blogList.innerHTML =
+            '<p class="text-center text-gray-500 dark:text-gray-400 py-8">Không có bài viết nào.</p>';
+          return;
+        }
+
+        let blogHTML = "";
+
+        // Featured post (latest/first post)
+        if (currentPage === 1 && paginatedBlogs.length > 0) {
+          const featuredBlog = paginatedBlogs[0];
+          blogHTML += `
+                    <article class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer mb-8" onclick="showBlogDetail(${featuredBlog.id})">
+                        <img src="${featuredBlog.image}" alt="${featuredBlog.title}" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <div class="flex items-center mb-4">
+                                <span class="bg-accent text-white text-xs px-3 py-1 rounded-full font-medium">Bài mới nhất</span>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4 hover:text-accent transition-colors">${featuredBlog.title}</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg">${featuredBlog.description}</p>
+                            <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center space-x-4">
+                                    <span>${featuredBlog.date}</span>
+                                    <span>${featuredBlog.readTime}</span>
+                                </div>
+                                <span class="text-accent hover:text-accent-dark font-medium text-lg">Đọc thêm →</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+        }
+
+        // Other posts in 2-column grid
+        const otherBlogs =
+          currentPage === 1 ? paginatedBlogs.slice(1) : paginatedBlogs;
+
+        if (otherBlogs.length > 0) {
+          blogHTML += `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${otherBlogs
+                          .map(
+                            (blog) => `
+                            <article class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-105" onclick="showBlogDetail(${blog.id})">
+                                <img src="${blog.image}" alt="${blog.title}" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-semibold mb-2 hover:text-accent transition-colors line-clamp-2">${blog.title}</h3>
+                                    <p class="text-gray-600 dark:text-gray-400 mb-3 leading-relaxed text-sm line-clamp-3">${blog.description}</p>
+                                    <div class="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+                                        <div class="flex items-center space-x-2">
+                                            <span>${blog.date}</span>
+                                            <span>•</span>
+                                            <span>${blog.readTime}</span>
+                                        </div>
+                                        <span class="text-accent hover:text-accent-dark font-medium">Đọc →</span>
+                                    </div>
+                                </div>
+                            </article>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                `;
+        }
+
+        blogList.innerHTML = blogHTML;
+        renderPagination();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(blogs.length / blogsPerPage);
+        const pagination = document.getElementById("pagination");
+
+        if (totalPages <= 1) {
+          pagination.innerHTML = "";
+          return;
+        }
+
+        let paginationHTML = "";
+
+        // Previous button
+        if (currentPage > 1) {
+          paginationHTML += `<button onclick="changePage(${
+            currentPage - 1
+          })" class="px-3 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Trước</button>`;
+        }
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+          const isActive = i === currentPage;
+          paginationHTML += `<button onclick="changePage(${i})" class="px-3 py-2 text-sm ${
+            isActive
+              ? "bg-accent text-white"
+              : "bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+          } rounded-lg">${i}</button>`;
+        }
+
+        // Next button
+        if (currentPage < totalPages) {
+          paginationHTML += `<button onclick="changePage(${
+            currentPage + 1
+          })" class="px-3 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Sau</button>`;
+        }
+
+        pagination.innerHTML = paginationHTML;
+      }
+
+      function changePage(page) {
+        currentPage = page;
+        renderBlogs();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderComments(comments) {
+        const commentsList = document.getElementById("commentsList");
+
+        if (comments.length === 0) {
+          commentsList.innerHTML =
+            '<p class="text-gray-500 dark:text-gray-400 text-center py-8">Chưa có bình luận nào. Hãy là người đầu tiên!</p>';
+          return;
+        }
+
+        commentsList.innerHTML = comments
+          .map(
+            (comment) => `
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 ${
+                  comment.pinned ? "border-l-4 border-accent" : ""
+                }">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-semibold">
+                            ${comment.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <h4 class="font-semibold">${comment.name}</h4>
+                                ${
+                                  comment.pinned
+                                    ? '<span class="bg-accent text-white text-xs px-2 py-1 rounded">Ghim</span>'
+                                    : ""
+                                }
+                                ${
+                                  currentUser
+                                    ? `
+                                    <button onclick="togglePinComment(${comment.id})" class="text-xs text-gray-500 hover:text-accent">
+                                        <i class="fas fa-thumbtack"></i>
+                                    </button>
+                                    <button onclick="deleteComment(${comment.id})" class="text-xs text-red-500 hover:text-red-700">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                `
+                                    : ""
+                                }
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 mb-2">${
+                              comment.content
+                            }</p>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">${
+                              comment.date
+                            }</span>
+                        </div>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      function updateAboutPage() {
+        document.getElementById("aboutProfileImg").src = profile.image;
+        document.getElementById("aboutProfileName").textContent = profile.name;
+        document.getElementById("aboutProfileBio").textContent = profile.bio;
+
+        const editBtn = document.getElementById("editProfileBtn");
+        if (currentUser) {
+          editBtn.classList.remove("hidden");
+        } else {
+          editBtn.classList.add("hidden");
+        }
+      }
+
+      function updateProfile() {
+        document.getElementById("profileImg").src = profile.image;
+        document.getElementById("profileName").textContent = profile.name;
+        document.getElementById("profileBio").textContent = profile.bio;
+        renderSocialLinks();
+      }
+
+      function renderSocialLinks() {
+        const socialIcons = {
+          facebook: "fab fa-facebook-f",
+          instagram: "fab fa-instagram",
+          youtube: "fab fa-youtube",
+          twitter: "fab fa-twitter",
+          linkedin: "fab fa-linkedin",
+          github: "fab fa-github",
+          website: "fas fa-globe",
+          email: "fas fa-envelope",
+        };
+
+        const socialNames = {
+          facebook: "Facebook",
+          instagram: "Instagram",
+          youtube: "YouTube",
+          twitter: "Twitter",
+          linkedin: "LinkedIn",
+          github: "GitHub",
+          website: "Website",
+          email: "Email",
+        };
+
+        // Render sidebar social links (compact)
+        const sidebarLinks = Object.entries(profile.socialLinks)
+          .filter(([key, url]) => url && url.trim())
+          .map(([key, url]) => {
+            const href = key === "email" ? `mailto:${url}` : url;
+            return `<a href="${href}" target="_blank" class="text-gray-500 hover:text-accent transition-colors" title="${socialNames[key]}">
+                        <i class="${socialIcons[key]}"></i>
+                    </a>`;
+          })
+          .join("");
+        document.getElementById("sidebarSocialLinks").innerHTML = sidebarLinks;
+
+        // Render header social links (compact)
+        const headerLinks = Object.entries(profile.socialLinks)
+          .filter(([key, url]) => url && url.trim())
+          .slice(0, 3) // Limit to 3 for header
+          .map(([key, url]) => {
+            const href = key === "email" ? `mailto:${url}` : url;
+            return `<a href="${href}" target="_blank" class="text-gray-500 hover:text-accent transition-colors" title="${socialNames[key]}">
+                        <i class="${socialIcons[key]}"></i>
+                    </a>`;
+          })
+          .join("");
+        document.getElementById("headerSocialLinks").innerHTML = headerLinks;
+
+        // Render about page social links (with labels)
+        const aboutLinks = Object.entries(profile.socialLinks)
+          .filter(([key, url]) => url && url.trim())
+          .map(([key, url]) => {
+            const href = key === "email" ? `mailto:${url}` : url;
+            return `<a href="${href}" target="_blank" class="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">
+                        <i class="${socialIcons[key]} text-xl"></i>
+                        <span>${socialNames[key]}</span>
+                    </a>`;
+          })
+          .join("");
+        document.getElementById("aboutSocialLinks").innerHTML = aboutLinks;
+      }
+
+      function updateBlogNavigation(currentBlogId) {
+        const currentIndex = blogs.findIndex((b) => b.id === currentBlogId);
+        const prevBtn = document.getElementById("prevBlog");
+        const nextBtn = document.getElementById("nextBlog");
+
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === blogs.length - 1;
+
+        if (!prevBtn.disabled) {
+          prevBtn.onclick = () => showBlogDetail(blogs[currentIndex - 1].id);
+        }
+        if (!nextBtn.disabled) {
+          nextBtn.onclick = () => showBlogDetail(blogs[currentIndex + 1].id);
+        }
+      }
+
+      // Authentication
+      function updateAuthState() {
+        const userMenu = document.getElementById("userMenu");
+        const loginBtn = document.getElementById("loginBtn");
+        const adminControls = document.getElementById("adminControls");
+
+        if (currentUser) {
+          userMenu.classList.remove("hidden");
+          loginBtn.classList.add("hidden");
+          adminControls.classList.remove("hidden");
+          document.getElementById("userAvatar").src = profile.image;
+        } else {
+          userMenu.classList.add("hidden");
+          loginBtn.classList.remove("hidden");
+          adminControls.classList.add("hidden");
+        }
+      }
+
+      function login() {
+        // Simulate login - in real app, this would validate credentials
+        currentUser = { id: 1, name: profile.name, email: "admin@blog.com" };
+        updateAuthState();
+        showHome();
+      }
+
+      function logout() {
+        currentUser = null;
+        updateAuthState();
+        showHome();
+      }
+
+      function toggleAuthMode() {
+        isLoginMode = !isLoginMode;
+        const title = document.getElementById("authTitle");
+        const submitBtn = document.getElementById("authSubmit");
+        const toggleBtn = document.getElementById("authToggle");
+        const registerFields = document.getElementById("registerFields");
+
+        if (isLoginMode) {
+          title.textContent = "Đăng nhập";
+          submitBtn.textContent = "Đăng nhập";
+          toggleBtn.textContent = "Chưa có tài khoản? Đăng ký ngay";
+          registerFields.classList.add("hidden");
+        } else {
+          title.textContent = "Đăng ký";
+          submitBtn.textContent = "Đăng ký";
+          toggleBtn.textContent = "Đã có tài khoản? Đăng nhập";
+          registerFields.classList.remove("hidden");
+        }
+      }
+
+      // Rich Text Editor Functions
+      function formatText(command) {
+        document.execCommand(command, false, null);
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function changeFontFamily() {
+        const fontFamily = document.getElementById("fontFamilySelect").value;
+        document.execCommand("fontName", false, fontFamily);
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function changeFontSize() {
+        const fontSize = document.getElementById("fontSizeSelect").value;
+        document.execCommand("fontSize", false, "7");
+        const fontElements = document
+          .getElementById("blogContentEditor")
+          .querySelectorAll('font[size="7"]');
+        fontElements.forEach((element) => {
+          element.removeAttribute("size");
+          element.style.fontSize = fontSize;
+        });
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function changeTextColor() {
+        const color = document.getElementById("textColorPicker").value;
+        document.execCommand("foreColor", false, color);
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function changeBackgroundColor() {
+        const color = document.getElementById("bgColorPicker").value;
+        document.execCommand("hiliteColor", false, color);
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function insertHeading(tag) {
+        if (!tag) return;
+
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const heading = document.createElement(tag);
+          heading.className = getHeadingClass(tag);
+
+          try {
+            range.surroundContents(heading);
+          } catch (e) {
+            heading.appendChild(range.extractContents());
+            range.insertNode(heading);
+          }
+        }
+
+        // Reset select
+        event.target.value = "";
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function getHeadingClass(tag) {
+        const classes = {
+          h1: "text-3xl font-bold my-4",
+          h2: "text-2xl font-bold my-3",
+          h3: "text-xl font-bold my-3",
+          h4: "text-lg font-bold my-2",
+        };
+        return classes[tag] || "";
+      }
+
+      function insertQuote() {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const blockquote = document.createElement("blockquote");
+          blockquote.className =
+            "border-l-4 border-accent pl-4 italic my-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-r-lg";
+
+          try {
+            range.surroundContents(blockquote);
+          } catch (e) {
+            blockquote.appendChild(range.extractContents());
+            range.insertNode(blockquote);
+          }
+        }
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function insertLink() {
+        const url = prompt("Nhập URL:");
+        if (url) {
+          const text =
+            window.getSelection().toString() ||
+            prompt("Nhập text hiển thị:") ||
+            url;
+          const link = `<a href="${url}" class="text-accent hover:text-accent-dark underline" target="_blank">${text}</a>`;
+          document.execCommand("insertHTML", false, link);
+        }
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function insertImage() {
+        const url = prompt("Nhập URL hình ảnh:");
+        if (url) {
+          const alt = prompt("Nhập mô tả hình ảnh (alt text):") || "Image";
+          const img = `<img src="${url}" alt="${alt}" class="max-w-full h-auto rounded-lg my-4 mx-auto block">`;
+          document.execCommand("insertHTML", false, img);
+        }
+        document.getElementById("blogContentEditor").focus();
+      }
+
+      function saveDraft() {
+        const title = document.getElementById("blogTitle").value;
+        const description = document.getElementById("blogDescription").value;
+        const content = document.getElementById("blogContentEditor").innerHTML;
+
+        localStorage.setItem(
+          "blogDraft",
+          JSON.stringify({
+            title,
+            description,
+            content,
+            timestamp: new Date().toISOString(),
+          })
+        );
+
+        alert("Đã lưu bản nháp!");
+      }
+
+      // Comment Functions
+      function togglePinComment(commentId) {
+        const blog = blogs.find((b) => b.id === currentBlogId);
+        const comment = blog.comments.find((c) => c.id === commentId);
+        comment.pinned = !comment.pinned;
+
+        // Sort comments to show pinned ones first
+        blog.comments.sort((a, b) => b.pinned - a.pinned);
+        renderComments(blog.comments);
+      }
+
+      function deleteComment(commentId) {
+        if (confirm("Bạn có chắc muốn xóa bình luận này?")) {
+          const blog = blogs.find((b) => b.id === currentBlogId);
+          blog.comments = blog.comments.filter((c) => c.id !== commentId);
+          renderComments(blog.comments);
+        }
+      }
+
+      // Event Listeners
+      document
+        .getElementById("themeToggle")
+        .addEventListener("click", toggleTheme);
+      document
+        .getElementById("fontSelector")
+        .addEventListener("change", function (e) {
+          applyFont(e.target.value);
+        });
+
+      // User menu toggle
+      document
+        .getElementById("userMenuButton")
+        .addEventListener("click", function () {
+          const dropdown = document.getElementById("userDropdown");
+          dropdown.classList.toggle("hidden");
+        });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (e) {
+        const userMenu = document.getElementById("userMenu");
+        const dropdown = document.getElementById("userDropdown");
+        if (!userMenu.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+
+      // Form Handlers
+      document
+        .getElementById("authForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          login(); // Simulate successful login
+        });
+
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          profile.name = document.getElementById("nameInput").value;
+          profile.bio = document.getElementById("bioInput").value;
+
+          // Update social links
+          profile.socialLinks.facebook =
+            document.getElementById("facebookInput").value;
+          profile.socialLinks.instagram =
+            document.getElementById("instagramInput").value;
+          profile.socialLinks.youtube =
+            document.getElementById("youtubeInput").value;
+          profile.socialLinks.twitter =
+            document.getElementById("twitterInput").value;
+          profile.socialLinks.linkedin =
+            document.getElementById("linkedinInput").value;
+          profile.socialLinks.github =
+            document.getElementById("githubInput").value;
+          profile.socialLinks.website =
+            document.getElementById("websiteInput").value;
+          profile.socialLinks.email =
+            document.getElementById("emailInput").value;
+
+          const imageInput = document.getElementById("profileImageInput");
+          if (imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              profile.image = e.target.result;
+              updateProfile();
+              updateAboutPage();
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+          } else {
+            updateProfile();
+            updateAboutPage();
+          }
+
+          showAbout();
+        });
+
+      document
+        .getElementById("createBlogForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const title = document.getElementById("blogTitle").value;
+          const description = document.getElementById("blogDescription").value;
+          const content =
+            document.getElementById("blogContentEditor").innerHTML;
+
+          const newBlog = {
+            id: blogs.length + 1,
+            title: title,
+            description: description,
+            content: `<h1>${title}</h1>${content}`,
+            image:
+              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23F3F4F6'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%23374151'%3E" +
+              encodeURIComponent(title) +
+              "%3C/text%3E%3C/svg%3E",
+            date: new Date().toLocaleDateString("vi-VN", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }),
+            readTime: Math.ceil(content.split(" ").length / 200) + " phút đọc",
+            comments: [],
+          };
+
+          const imageInput = document.getElementById("blogImageInput");
+          if (imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              newBlog.image = e.target.result;
+              blogs.unshift(newBlog);
+              document.getElementById("createBlogForm").reset();
+              document.getElementById("blogContentEditor").innerHTML = "";
+              showHome();
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+          } else {
+            blogs.unshift(newBlog);
+            document.getElementById("createBlogForm").reset();
+            document.getElementById("blogContentEditor").innerHTML = "";
+            showHome();
+          }
+        });
+
+      document
+        .getElementById("commentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("commentName").value;
+          const content = document.getElementById("commentContent").value;
+
+          const blog = blogs.find((b) => b.id === currentBlogId);
+          const newComment = {
+            id: blog.comments.length + 1,
+            name: name,
+            content: content,
+            date: new Date().toLocaleDateString("vi-VN", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }),
+            pinned: false,
+          };
+
+          blog.comments.push(newComment);
+          renderComments(blog.comments);
+
+          // Reset form
+          document.getElementById("commentForm").reset();
+        });
+
+      // Initialize App
+      function init() {
+        initTheme();
+        initFont();
+        initSearch();
+        updateProfile();
+        updateAuthState();
+        showHome();
+      }
+
+      // Start the application
+      init();
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9717f154c7041076',t:'MTc1NTU4ODU5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
