@@ -166,7 +166,7 @@
               class="text-xl font-bold text-gray-900 dark:text-white cursor-pointer"
               onclick="showHome()"
             >
-              Duy Khánh's Blog
+              Duy Khánh Blog
             </h1>
           </div>
 
@@ -279,13 +279,21 @@
                 <!-- Social links will be rendered here -->
               </div>
 
-              <!-- Contact Button -->
-              <button
-                onclick="showAbout()"
-                class="bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors text-sm"
-              >
-                <i class="fas fa-user mr-2"></i>Xem thêm
-              </button>
+              <!-- Action Buttons -->
+              <div class="space-y-3">
+                <button
+                  onclick="showRandomBlog()"
+                  class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+                >
+                  <i class="fas fa-random mr-2"></i>Bài ngẫu nhiên
+                </button>
+                <button
+                  onclick="showAbout()"
+                  class="w-full bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors text-sm"
+                >
+                  <i class="fas fa-user mr-2"></i>Xem thêm
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -300,9 +308,21 @@
           <!-- Blog content will be rendered here -->
         </article>
 
+        <!-- Random Blog Button -->
+        <div
+          class="text-center mt-8 pt-6 border-t border-gray-200 dark:border-gray-700"
+        >
+          <button
+            onclick="showRandomBlog()"
+            class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+          >
+            <i class="fas fa-random mr-2"></i>Khám phá bài ngẫu nhiên
+          </button>
+        </div>
+
         <!-- Navigation -->
         <div
-          class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
+          class="flex justify-between items-center mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"
         >
           <button
             id="prevBlog"
@@ -373,7 +393,7 @@
         <div class="text-center mb-8">
           <img
             id="aboutProfileImg"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+            src=""
             alt="Profile"
             class="w-40 h-40 rounded-lg mx-auto mb-6 shadow-lg"
           />
@@ -402,88 +422,11 @@
 
       // ===== CÁC HÀM TẠO BLOG - Mỗi blog một hàm riêng để dễ quản lý =====
       // Muốn xóa blog nào thì xóa hàm đó và bỏ khỏi mảng blogs ở dưới
-      // BLOG 1: Bài viết về cách sống chung hòa thuận
+
+      // BLOG 1: Bài viết về học lập trình
       function getBlog1() {
         return {
-          id: 1, // ID duy nhất của blog (dùng để phân biệt các blog)
-          title: "7 nguyên tắc khi ở chung với nhiều người", // Tiêu đề hiển thị
-          description:
-            "Ở chung là cùng sống trong một phạm vi nhất định, mà ở đó mọi người chia sẻ không gian, chia sẻ sinh hoạt, và đôi khi… chia sẻ cả sự bực mình của nhau. Chuyện này thường gặp ở trọ ghép, trong ký túc xá (KTX), hoặc khi bạn học cấp 3, đại học và phải xa nhà.", // Mô tả ngắn hiển thị ở trang chủ
-          content: `<h1>7 nguyên tắc khi ở chung với nhiều người</h1>
-                         <p>Ở chung là cùng sống trong một phạm vi nhất định, mà ở đó mọi người chia sẻ không gian, chia sẻ sinh hoạt, và đôi khi… chia sẻ cả sự bực mình của nhau. Chuyện này thường gặp ở trọ ghép, trong ký túc xá (KTX), hoặc khi bạn học cấp 3, đại học và phải xa nhà.</p>
-
-                         <p>Ở chung không khó, cái khó là sống sao để mọi người đều cảm thấy thoải mái, tôn trọng nhau, và quan trọng là… không ai âm thầm "bỏ phiếu" loại bạn khỏi vòng sống chung. Tin tớ đi, nếu mất thiện cảm ngay từ mấy tuần đầu thì bạn sẽ thấy mỗi ngày ở chung giống như chơi "game sinh tồn" mà chẳng có nút thoát.</p>
-
-                         <p>Sau vài năm sống KTX, ở trọ, và chứng kiến đủ loại drama từ siêu nhỏ (ai ăn vụng sữa chua của ai) đến siêu to khổng lồ (chia phe cãi nhau vì cái… thùng rác), tớ đã đúc rút ra 7 nguyên tắc vàng. Áp dụng được thì đảm bảo bạn sống sạch, sống yên, tình bạn vẫn nguyên vẹn.</p>
-
-                         <h2>1. Nguyên tắc "Của ai người nấy giữ"</h2>
-                         <p>Đây là nguyên tắc số 1, quan trọng nhất. Đồ của ai thì người đó giữ, muốn dùng thì xin phép trước. Đừng có tự nhiên lấy đồ người khác dùng rồi nghĩ "ừm, chắc họ không sao đâu". Không đâu bạn ơi, có sao đấy!</p>
-
-                         <h2>2. Dọn dẹp sau khi sử dụng</h2>
-                         <p>Xài xong thì dọn. Nấu ăn xong thì rửa bát. Tắm xong thì lau sàn. Đơn giản vậy thôi. Đừng để người khác phải dọn dẹp đống mess mà bạn tạo ra.</p>
-
-                         <h2>3. Tôn trọng giờ giấc nghỉ ngơi</h2>
-                         <p>Sau 10h tối thì hạn chế gây ồn. Không bật nhạc to, không nói chuyện điện thoại ầm ĩ, không xem phim không tai nghe. Người ta cần ngủ để mai đi làm, đi học đấy.</p>
-
-                         <h2>4. Chia sẻ chi phí chung một cách minh bạch</h2>
-                         <p>Tiền điện, nước, wifi, đồ dùng chung... tất cả phải chia đều và minh bạch. Lập một cái bảng chi tiêu, ai đóng bao nhiêu, còn nợ bao nhiêu. Đừng để chuyện tiền bạc làm hỏng tình cảm.</p>
-
-                         <h2>5. Giao tiếp thẳng thắn nhưng lịch sự</h2>
-                         <p>Có vấn đề gì thì nói thẳng, đừng dồn nén rồi bùng nổ. Nhưng nói phải lịch sự, tôn trọng. "Bạn ơi, mình thấy..." thay vì "Tao bảo mày..."</p>
-
-                         <h2>6. Tạo không gian riêng tư cho nhau</h2>
-                         <p>Dù ở chung nhưng mỗi người vẫn cần có không gian riêng. Đừng tò mò về chuyện cá nhân của người khác, đừng động vào đồ đạc riêng, và biết lúc nào nên "biến mất" để người ta có thể thoải mái.</p>
-
-                         <h2>7. Linh hoạt và thông cảm</h2>
-                         <p>Cuối cùng, hãy linh hoạt. Đôi khi người ta có việc đột xuất, có lúc ai đó cũng sẽ làm phiền bạn. Thông cảm cho nhau, đừng quá khắt khe với những quy tắc nhỏ nhặt.</p>
-
-                         <blockquote>Sống chung không phải là cuộc thi ai sống "đúng" hơn, mà là nghệ thuật cùng nhau tạo ra một không gian thoải mái cho tất cả mọi người.</blockquote>
-
-                         <p>Nhớ nhé, mục tiêu của việc ở chung không phải là trở thành bạn thân của nhau (dù điều đó rất tuyệt), mà là tạo ra một môi trường sống thoải mái, tôn trọng lẫn nhau. Áp dụng 7 nguyên tắc này, tớ đảm bảo cuộc sống chung của bạn sẽ suôn sẻ hơn rất nhiều!</p>`,
-          // Ảnh đại diện cho blog (dùng SVG tự tạo - không cần file ảnh thật)
-          image:
-            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
-          date: "20 tháng 12, 2024", // Ngày đăng bài
-          readTime: "6 phút đọc", // Thời gian đọc ước tính
-          comments: [], // Mảng chứa bình luận (rỗng = chưa có bình luận)
-        };
-      }
-
-      // BLOG 2: Bài viết về lối sống tối giản
-      function getBlog2() {
-        return {
-          id: 2, // ID blog thứ 2
-          title: "Khám phá sức mạnh của Minimalism",
-          description:
-            "Minimalism không chỉ là về việc sở hữu ít đồ đạc, mà còn là triết lý sống giúp chúng ta tập trung vào những gì thực sự quan trọng.",
-          content: `<h1>Khám phá sức mạnh của Minimalism</h1>
-                         <p>Trong thế giới hiện đại đầy ắp những thứ không cần thiết, minimalism đã trở thành một xu hướng sống được nhiều người quan tâm. Đây không chỉ đơn thuần là việc sở hữu ít đồ đạc, mà còn là một triết lý sống sâu sắc.</p>
-                         <blockquote>"Sự đơn giản là sự tinh tế tối thượng" - Leonardo da Vinci</blockquote>
-                         <h2>Minimalism là gì?</h2>
-                         <p>Minimalism giúp chúng ta loại bỏ những thứ không cần thiết để tập trung vào những gì thực sự mang lại giá trị cho cuộc sống. Đó có thể là mối quan hệ, sở thích, công việc hay những trải nghiệm ý nghĩa.</p>
-                         <h2>Lợi ích của lối sống tối giản</h2>
-                         <p>Khi áp dụng minimalism, bạn sẽ cảm thấy tâm trí thanh thản hơn, có nhiều thời gian hơn cho những việc quan trọng và giảm bớt căng thẳng trong cuộc sống hàng ngày.</p>`,
-          image:
-            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop",
-          date: "15 tháng 12, 2024",
-          readTime: "5 phút đọc",
-          comments: [
-            {
-              id: 1,
-              name: "Minh Anh",
-              content:
-                "Bài viết rất hay! Mình đã áp dụng minimalism và cảm thấy cuộc sống nhẹ nhàng hơn nhiều.",
-              date: "16 tháng 12, 2024",
-              pinned: false,
-            },
-          ],
-        };
-      }
-
-      // BLOG 3: Bài viết về học lập trình
-      function getBlog3() {
-        return {
-          id: 3, // ID blog thứ 3
+          id: 1, // ID blog thứ 1
           title: "Hành trình học lập trình từ con số 0",
           description:
             "Mặc dù là một học sinh chuyên tin ở thời điểm hiện tại, dù vậy trong quá khứ mình   đã từng vật lộn chỉ để fix vài cái bug nhỏ, đến những cấu trúc tưởng đơn giản nhưng mà không xong, khoảng thời gian đó.",
@@ -533,91 +476,6 @@
             "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
           date: "10 tháng 12, 2024",
           readTime: "8 phút đọc",
-          comments: [
-            {
-              id: 1,
-              name: "Tuấn Anh",
-              content:
-                "Cảm ơn bạn đã chia sẻ! Mình cũng đang trong giai đoạn học lập trình và cảm thấy rất có động lực.",
-              date: "11 tháng 12, 2024",
-              pinned: false,
-            },
-          ],
-        };
-      }
-
-      // BLOG 4: Bài viết về quản lý thời gian
-      function getBlog4() {
-        return {
-          id: 4, // ID blog thứ 4
-          title: "Nghệ thuật quản lý thời gian hiệu quả",
-          description:
-            "Khám phá những phương pháp quản lý thời gian đã được chứng minh hiệu quả để tăng năng suất và cân bằng cuộc sống.",
-          content: `<h1>Nghệ thuật quản lý thời gian hiệu quả</h1>
-                         <p>Thời gian là tài nguyên quý giá nhất mà chúng ta có. Việc quản lý thời gian hiệu quả không chỉ giúp tăng năng suất mà còn mang lại cảm giác kiểm soát cuộc sống.</p>
-                         <h2>Phương pháp Pomodoro</h2>
-                         <p>Chia công việc thành các khoảng thời gian 25 phút tập trung cao độ, sau đó nghỉ 5 phút. Đây là một trong những phương pháp được ưa chuộng nhất.</p>
-                         <h2>Ma trận Eisenhower</h2>
-                         <p>Phân loại công việc theo 4 nhóm: Quan trọng & Khẩn cấp, Quan trọng & Không khẩn cấp, Không quan trọng & Khẩn cấp, Không quan trọng & Không khẩn cấp.</p>
-                         <blockquote>Thời gian không chờ đợi ai. Hãy sử dụng nó một cách khôn ngoan.</blockquote>`,
-          image:
-            "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
-          date: "5 tháng 12, 2024",
-          readTime: "6 phút đọc",
-          comments: [],
-        };
-      }
-
-      // BLOG 5: Bài viết về tầm quan trọng của việc đọc sách
-      function getBlog5() {
-        return {
-          id: 5, // ID blog thứ 5
-          title: "Tại sao đọc sách lại quan trọng trong thời đại số?",
-          description:
-            "Trong kỷ nguyên thông tin bùng nổ, việc đọc sách vẫn giữ vai trò không thể thay thế trong việc phát triển tư duy và kiến thức.",
-          content: `<h1>Tại sao đọc sách lại quan trọng trong thời đại số?</h1>
-                         <p>Dù công nghệ phát triển vượt bậc, việc đọc sách vẫn là một trong những cách tốt nhất để mở rộng kiến thức và phát triển tư duy phản biện.</p>
-                         <h2>Lợi ích của việc đọc sách</h2>
-                         <p>Đọc sách giúp cải thiện khả năng tập trung, mở rộng vốn từ vựng, phát triển trí tưởng tượng và giảm stress hiệu quả.</p>
-                         <h2>Cách xây dựng thói quen đọc</h2>
-                         <p>Bắt đầu với 15-20 phút mỗi ngày, chọn sách phù hợp với sở thích và tạo không gian đọc thoải mái.</p>
-                         <blockquote>Một cuốn sách là một giấc mơ mà bạn cầm trong tay - Neil Gaiman</blockquote>`,
-          image:
-            "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=400&fit=crop",
-          date: "1 tháng 12, 2024",
-          readTime: "4 phút đọc",
-          comments: [
-            {
-              id: 1,
-              name: "Lan Hương",
-              content:
-                "Mình rất đồng ý! Đọc sách giúp mình có những góc nhìn mới về cuộc sống.",
-              date: "2 tháng 12, 2024",
-              pinned: false,
-            },
-          ],
-        };
-      }
-
-      // BLOG 6: Bài viết về ẩm thực Việt Nam
-      function getBlog6() {
-        return {
-          id: 6, // ID blog thứ 6
-          title: "Khám phá ẩm thực Việt Nam qua từng miền",
-          description:
-            "Hành trình khám phá những món ăn đặc trưng của ba miền Bắc - Trung - Nam, từ phở Hà Nội đến bún bò Huế và bánh xèo miền Tây.",
-          content: `<h1>Khám phá ẩm thực Việt Nam qua từng miền</h1>
-                         <p>Ẩm thực Việt Nam nổi tiếng thế giới với sự đa dạng và phong phú. Mỗi miền có những đặc trưng riêng biệt, tạo nên bức tranh ẩm thực đầy màu sắc.</p>
-                         <h2>Miền Bắc - Tinh tế và thanh đạm</h2>
-                         <p>Phở, bún chả, bánh cuốn... những món ăn miền Bắc thường có hương vị thanh đạm, tinh tế và chú trọng vào sự cân bằng.</p>
-                         <h2>Miền Trung - Đậm đà và cay nồng</h2>
-                         <p>Bún bò Huế, mì Quảng, bánh khoái... ẩm thực miền Trung nổi bật với hương vị đậm đà, cay nồng và màu sắc rực rỡ.</p>
-                         <h2>Miền Nam - Ngọt ngào và đa dạng</h2>
-                         <p>Bánh xèo, hủ tiếu, cơm tấm... món ăn miền Nam thường có vị ngọt tự nhiên và sự kết hợp đa dạng của các nguyên liệu.</p>`,
-          image:
-            "https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&h=400&fit=crop",
-          date: "25 tháng 11, 2024",
-          readTime: "7 phút đọc",
           comments: [],
         };
       }
@@ -627,27 +485,25 @@
       // Muốn thêm blog mới: tạo hàm getBlog7() rồi thêm getBlog7() vào mảng này
       // Muốn xóa blog: bỏ dòng tương ứng khỏi mảng này
       let blogs = [
-        getBlog3(), // Blog về học lập trình (ID: 3)
-        getBlog2(), // Blog về minimalism (ID: 2)
-        getBlog1(), // Blog về sống chung (ID: 1)
+        getBlog1(), // Blog về học lập trình (ID: 1)
       ];
 
       // ===== THÔNG TIN CÁ NHÂN =====
       // Đây là thông tin hiển thị ở sidebar và trang giới thiệu
       let profile = {
-        name: "Duy Khánh",
-        bio: "Hello! Mình là Duy Khánh, một cậu học trò nhỏ có niềm đam mê với Khoa học. Đây là nơi mình chia sẻ những sở thích cá nhân và những thứ khác trong cuộc sống",
+        name: "Duy Khánh", // Tên hiển thị
+        bio: "Hello! Mình là Duy Khánh, Một cậu học trò nhỏ có niềm đam mê với Khoa học. Đây là nơi mình chia sẻ những sở thích cá nhân và những thứ khác trong cuộc sống", // Mô tả bản thân
+        // Ảnh đại diện (dùng SVG tự tạo - có thể thay bằng link ảnh thật)
         image:
           "https://lh3.googleusercontent.com/a/ACg8ocKHaDxR29_7lvDcQjEAgPbhW81ByFqa1jk31hVldh38Ev0p_Vhe=s360-c-no",
+
+        // Các liên kết mạng xã hội (chỉ giữ lại những cái cần dùng)
         socialLinks: {
-          facebook: "https://facebook.com/myblog",
-          instagram: "https://instagram.com/myblog",
-          youtube: "https://youtube.com/myblog",
-          twitter: "https://twitter.com/myblog",
-          linkedin: "https://linkedin.com/in/myblog",
-          github: "https://github.com/myblog",
-          website: "https://myblog.com",
-          email: "contact@myblog.com",
+          facebook: "https://web.facebook.com/duy.khanh.856383",
+          youtube: "https://www.youtube.com/@dwikhanhthikv", // Link Instagram
+          instagram: "https://www.instagram.com/khanhbicute/", // Link YouTube
+          website: "https://lamduykhanhprofilecv.vercel.app/", // Website cá nhân
+          email: "duykhanhcvak36@gmail.com", // Email liên hệ
         },
       };
 
@@ -792,6 +648,26 @@
         hideAllPages();
         document.getElementById("aboutPage").classList.remove("hidden");
         updateAboutPage();
+      }
+
+      // Hiển thị bài viết ngẫu nhiên
+      function showRandomBlog() {
+        if (blogs.length === 0) return;
+
+        // Chọn ngẫu nhiên một blog (tránh blog hiện tại nếu đang xem blog)
+        let availableBlogs = blogs;
+        if (currentBlogId) {
+          availableBlogs = blogs.filter((blog) => blog.id !== currentBlogId);
+        }
+
+        if (availableBlogs.length === 0) {
+          availableBlogs = blogs; // Fallback nếu chỉ có 1 blog
+        }
+
+        const randomIndex = Math.floor(Math.random() * availableBlogs.length);
+        const randomBlog = availableBlogs[randomIndex];
+
+        showBlogDetail(randomBlog.id);
       }
 
       function hideAllPages() {
@@ -976,28 +852,28 @@
         renderSocialLinks();
       }
 
-      function renderSocialLinks() {
-        const socialIcons = {
-          facebook: "fab fa-facebook-f",
-          instagram: "fab fa-instagram",
-          youtube: "fab fa-youtube",
-          twitter: "fab fa-twitter",
-          linkedin: "fab fa-linkedin",
-          github: "fab fa-github",
-          website: "fas fa-globe",
-          email: "fas fa-envelope",
+      // ===== HÀM QUẢN LÝ ICON VÀ TÊN MẠNG XÃ HỘI =====
+      function getSocialConfig() {
+        return {
+          icons: {
+            facebook: "fab fa-facebook",
+            instagram: "fab fa-instagram",
+            youtube: "fab fa-youtube",
+            website: "fas fa-globe",
+            email: "fas fa-envelope",
+          },
+          names: {
+            facebook: "Facebook",
+            instagram: "Instagram",
+            youtube: "YouTube",
+            website: "Website",
+            email: "Email",
+          },
         };
+      }
 
-        const socialNames = {
-          facebook: "Facebook",
-          instagram: "Instagram",
-          youtube: "YouTube",
-          twitter: "Twitter",
-          linkedin: "LinkedIn",
-          github: "GitHub",
-          website: "Website",
-          email: "Email",
-        };
+      function renderSocialLinks() {
+        const { icons: socialIcons, names: socialNames } = getSocialConfig();
 
         // Render sidebar social links (compact)
         const sidebarLinks = Object.entries(profile.socialLinks)
@@ -1111,7 +987,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'971b0a53e38606e4',t:'MTc1NTYyMTA3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'9723f1ffc033dd9e',t:'MTc1NTcxNDQ1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
