@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Blog</title>
+    <title>Duy Khánh Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -64,22 +64,26 @@
       #blogContentEditor h1,
       #blogContentEditor h2,
       #blogContentEditor h3,
-      #blogContentEditor h4 {
-        font-weight: bold;
-        margin: 1rem 0;
+      #blogContentEditor h4,
+      #blogContentEditor h5 {
+        font-weight: 800;
+        margin: 1.5rem 0;
       }
 
       #blogContentEditor h1 {
-        font-size: 1.875rem;
+        font-size: 2rem;
       }
       #blogContentEditor h2 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
       }
       #blogContentEditor h3 {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
       }
       #blogContentEditor h4 {
-        font-size: 1.125rem;
+        font-size: 1.375rem;
+      }
+      #blogContentEditor h5 {
+        font-size: 1.25rem;
       }
 
       #blogContentEditor blockquote {
@@ -108,6 +112,42 @@
         margin: 1rem auto;
         display: block;
       }
+
+      /* Styling for blog content display */
+      .blog-content-styling h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 1.5rem 0;
+        line-height: 1.2;
+      }
+
+      .blog-content-styling h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin: 1.5rem 0;
+        line-height: 1.3;
+      }
+
+      .blog-content-styling h3 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 1.5rem 0;
+        line-height: 1.3;
+      }
+
+      .blog-content-styling h4 {
+        font-size: 1.375rem;
+        font-weight: 800;
+        margin: 1.5rem 0;
+        line-height: 1.4;
+      }
+
+      .blog-content-styling h5 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin: 1.5rem 0;
+        line-height: 1.4;
+      }
     </style>
   </head>
   <body
@@ -126,7 +166,7 @@
               class="text-xl font-bold text-gray-900 dark:text-white cursor-pointer"
               onclick="showHome()"
             >
-              My Blog
+              Duy Khánh's Blog
             </h1>
           </div>
 
@@ -171,53 +211,12 @@
               <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
             </button>
 
-            <!-- User Menu -->
-            <div id="userMenu" class="hidden relative">
-              <button
-                id="userMenuButton"
-                class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <img
-                  id="userAvatar"
-                  src=""
-                  alt="User"
-                  class="w-8 h-8 rounded-full"
-                />
-                <i class="fas fa-chevron-down text-xs"></i>
-              </button>
-              <div
-                id="userDropdown"
-                class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden"
-              >
-                <a
-                  href="#"
-                  onclick="showProfile()"
-                  class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
-                  >Hồ sơ</a
-                >
-                <a
-                  href="#"
-                  onclick="showCreateBlog()"
-                  class="block px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700"
-                  >Viết blog</a
-                >
-                <hr class="border-gray-200 dark:border-gray-700" />
-                <a
-                  href="#"
-                  onclick="logout()"
-                  class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  >Đăng xuất</a
-                >
-              </div>
-            </div>
-
-            <!-- Login Button -->
+            <!-- About Button -->
             <button
-              id="loginBtn"
-              onclick="showLogin()"
+              onclick="showAbout()"
               class="text-sm bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors"
             >
-              Đăng nhập
+              Giới thiệu
             </button>
 
             <!-- Social Links -->
@@ -256,19 +255,20 @@
             <div class="text-center mb-6">
               <img
                 id="profileImg"
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%236366F1'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='30' fill='white'%3EMB%3C/text%3E%3C/svg%3E"
+                src="https://lh3.googleusercontent.com/a/ACg8ocKHaDxR29_7lvDcQjEAgPbhW81ByFqa1jk31hVldh38Ev0p_Vhe=s360-c-no"
                 alt="Profile"
-                class="w-24 h-24 rounded-full mx-auto mb-4"
+                class="w-36 h-36 rounded-lg mx-auto mb-4 shadow-lg"
               />
               <h3 id="profileName" class="text-xl font-semibold mb-2">
-                My Blog
+                Duy Khánh
               </h3>
               <p
                 id="profileBio"
                 class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4"
               >
-                Chào mừng đến với blog cá nhân của tôi! Nơi tôi chia sẻ những
-                suy nghĩ, trải nghiệm và kiến thức về cuộc sống.
+                Hello! Mình là Duy Khánh, Một cậu học trò nhỏ có niềm đam mê với
+                Khoa học. Đây là nơi mình chia sẻ những sở thích cá nhân và
+                những thứ khác trong cuộc sống
               </p>
 
               <!-- Social Links -->
@@ -281,26 +281,11 @@
 
               <!-- Contact Button -->
               <button
+                onclick="showAbout()"
                 class="bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent-dark transition-colors text-sm"
               >
-                <i class="fas fa-envelope mr-2"></i>Liên hệ
+                <i class="fas fa-user mr-2"></i>Xem thêm
               </button>
-
-              <!-- Admin Controls -->
-              <div id="adminControls" class="hidden mt-4 space-y-2">
-                <button
-                  onclick="showProfile()"
-                  class="w-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm"
-                >
-                  Chỉnh sửa hồ sơ
-                </button>
-                <button
-                  onclick="showCreateBlog()"
-                  class="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-dark transition-colors text-sm"
-                >
-                  Viết blog mới
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -388,9 +373,9 @@
         <div class="text-center mb-8">
           <img
             id="aboutProfileImg"
-            src=""
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
             alt="Profile"
-            class="w-32 h-32 rounded-full mx-auto mb-6"
+            class="w-40 h-40 rounded-lg mx-auto mb-6 shadow-lg"
           />
           <h1 id="aboutProfileName" class="text-3xl font-bold mb-4"></h1>
           <p
@@ -406,525 +391,80 @@
         >
           <!-- Social links will be rendered here -->
         </div>
-
-        <!-- Admin Edit Button -->
-        <div id="editProfileBtn" class="hidden text-center">
-          <button
-            onclick="showProfileEdit()"
-            class="bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent-dark transition-colors"
-          >
-            <i class="fas fa-edit mr-2"></i>Chỉnh sửa hồ sơ
-          </button>
-        </div>
-      </div>
-
-      <!-- Profile Edit Page -->
-      <div id="profileEditPage" class="hidden max-w-2xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6">Chỉnh sửa hồ sơ</h2>
-        <form id="profileForm" class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium mb-2">Ảnh đại diện</label>
-            <input
-              type="file"
-              id="profileImageInput"
-              accept="image/*"
-              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-accent file:text-white hover:file:bg-accent-dark"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2">Tên hiển thị</label>
-            <input
-              type="text"
-              id="nameInput"
-              required
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2">Giới thiệu</label>
-            <textarea
-              id="bioInput"
-              rows="4"
-              required
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-            ></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-4"
-              >Liên kết cá nhân</label
-            >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-facebook-f mr-1"></i>Facebook
-                </label>
-                <input
-                  type="url"
-                  id="facebookInput"
-                  placeholder="https://facebook.com/username"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-instagram mr-1"></i>Instagram
-                </label>
-                <input
-                  type="url"
-                  id="instagramInput"
-                  placeholder="https://instagram.com/username"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-youtube mr-1"></i>YouTube
-                </label>
-                <input
-                  type="url"
-                  id="youtubeInput"
-                  placeholder="https://youtube.com/channel"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-twitter mr-1"></i>Twitter
-                </label>
-                <input
-                  type="url"
-                  id="twitterInput"
-                  placeholder="https://twitter.com/username"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-linkedin mr-1"></i>LinkedIn
-                </label>
-                <input
-                  type="url"
-                  id="linkedinInput"
-                  placeholder="https://linkedin.com/in/username"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fab fa-github mr-1"></i>GitHub
-                </label>
-                <input
-                  type="url"
-                  id="githubInput"
-                  placeholder="https://github.com/username"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fas fa-globe mr-1"></i>Website
-                </label>
-                <input
-                  type="url"
-                  id="websiteInput"
-                  placeholder="https://yourwebsite.com"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-xs text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  <i class="fas fa-envelope mr-1"></i>Email
-                </label>
-                <input
-                  type="email"
-                  id="emailInput"
-                  placeholder="contact@yourdomain.com"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="flex space-x-4">
-            <button
-              type="submit"
-              class="bg-accent text-white py-2 px-6 rounded-lg hover:bg-accent-dark transition-colors"
-            >
-              Lưu thay đổi
-            </button>
-            <button
-              type="button"
-              onclick="showAbout()"
-              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              Hủy
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Create Blog Page -->
-      <div id="createBlogPage" class="hidden max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6">Viết bài mới</h2>
-        <form id="createBlogForm" class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium mb-2">Tiêu đề</label>
-            <input
-              type="text"
-              id="blogTitle"
-              required
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2">Mô tả ngắn</label>
-            <textarea
-              id="blogDescription"
-              rows="3"
-              required
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-            ></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2">Ảnh bìa</label>
-            <input
-              type="file"
-              id="blogImageInput"
-              accept="image/*"
-              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-accent file:text-white hover:file:bg-accent-dark"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2">Nội dung</label>
-            <div class="border border-gray-300 dark:border-gray-600 rounded-lg">
-              <!-- Rich Text Editor Toolbar -->
-              <div
-                class="border-b border-gray-300 dark:border-gray-600 p-2 flex flex-wrap gap-2"
-              >
-                <!-- Font Style -->
-                <select
-                  id="fontFamilySelect"
-                  onchange="changeFontFamily()"
-                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
-                >
-                  <option value="Arial">Arial</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Times New Roman">Times New Roman</option>
-                  <option value="Helvetica">Helvetica</option>
-                  <option value="Verdana">Verdana</option>
-                </select>
-
-                <!-- Font Size -->
-                <select
-                  id="fontSizeSelect"
-                  onchange="changeFontSize()"
-                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
-                >
-                  <option value="12px">12px</option>
-                  <option value="14px">14px</option>
-                  <option value="16px" selected>16px</option>
-                  <option value="18px">18px</option>
-                  <option value="20px">20px</option>
-                  <option value="24px">24px</option>
-                  <option value="32px">32px</option>
-                </select>
-
-                <!-- Text Color -->
-                <input
-                  type="color"
-                  id="textColorPicker"
-                  onchange="changeTextColor()"
-                  class="w-8 h-8 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                  value="#000000"
-                />
-
-                <!-- Background Color -->
-                <input
-                  type="color"
-                  id="bgColorPicker"
-                  onchange="changeBackgroundColor()"
-                  class="w-8 h-8 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                  value="#ffffff"
-                />
-
-                <div
-                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
-                ></div>
-
-                <!-- Format Buttons -->
-                <button
-                  type="button"
-                  onclick="formatText('bold')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Bold"
-                >
-                  <i class="fas fa-bold"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('italic')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Italic"
-                >
-                  <i class="fas fa-italic"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('underline')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Underline"
-                >
-                  <i class="fas fa-underline"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('strikeThrough')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Strikethrough"
-                >
-                  <i class="fas fa-strikethrough"></i>
-                </button>
-
-                <div
-                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
-                ></div>
-
-                <!-- Alignment -->
-                <button
-                  type="button"
-                  onclick="formatText('justifyLeft')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Align Left"
-                >
-                  <i class="fas fa-align-left"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('justifyCenter')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Align Center"
-                >
-                  <i class="fas fa-align-center"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('justifyRight')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Align Right"
-                >
-                  <i class="fas fa-align-right"></i>
-                </button>
-
-                <div
-                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
-                ></div>
-
-                <!-- Lists -->
-                <button
-                  type="button"
-                  onclick="formatText('insertUnorderedList')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Bullet List"
-                >
-                  <i class="fas fa-list-ul"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="formatText('insertOrderedList')"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Numbered List"
-                >
-                  <i class="fas fa-list-ol"></i>
-                </button>
-
-                <div
-                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
-                ></div>
-
-                <!-- Special Elements -->
-                <button
-                  type="button"
-                  onclick="insertQuote()"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Quote"
-                >
-                  <i class="fas fa-quote-left"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="insertLink()"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Insert Link"
-                >
-                  <i class="fas fa-link"></i>
-                </button>
-                <button
-                  type="button"
-                  onclick="insertImage()"
-                  class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  title="Insert Image"
-                >
-                  <i class="fas fa-image"></i>
-                </button>
-
-                <div
-                  class="border-l border-gray-300 dark:border-gray-600 mx-2"
-                ></div>
-
-                <!-- Headings -->
-                <select
-                  onchange="insertHeading(this.value)"
-                  class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
-                >
-                  <option value="">Heading</option>
-                  <option value="h1">H1</option>
-                  <option value="h2">H2</option>
-                  <option value="h3">H3</option>
-                  <option value="h4">H4</option>
-                </select>
-              </div>
-              <div
-                id="blogContentEditor"
-                contenteditable="true"
-                class="p-4 min-h-64 focus:outline-none bg-white dark:bg-gray-800"
-                placeholder="Viết nội dung bài blog của bạn..."
-              ></div>
-            </div>
-          </div>
-
-          <div class="flex space-x-4">
-            <button
-              type="button"
-              onclick="saveDraft()"
-              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              <i class="fas fa-save mr-2"></i>Lưu nháp
-            </button>
-            <button
-              type="submit"
-              class="bg-accent text-white py-2 px-6 rounded-lg hover:bg-accent-dark transition-colors"
-            >
-              <i class="fas fa-paper-plane mr-2"></i>Đăng bài
-            </button>
-            <button
-              type="button"
-              onclick="showHome()"
-              class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              Hủy
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Login/Register Page -->
-      <div id="loginPage" class="hidden max-w-md mx-auto">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-          <h2 id="authTitle" class="text-2xl font-bold text-center mb-6">
-            Đăng nhập
-          </h2>
-
-          <form id="authForm">
-            <div id="registerFields" class="hidden space-y-4 mb-4">
-              <input
-                type="text"
-                id="registerName"
-                placeholder="Tên đầy đủ"
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-              />
-            </div>
-
-            <div class="space-y-4 mb-6">
-              <input
-                type="email"
-                id="authEmail"
-                placeholder="Email"
-                required
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-              />
-              <input
-                type="password"
-                id="authPassword"
-                placeholder="Mật khẩu"
-                required
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-accent focus:border-transparent"
-              />
-            </div>
-
-            <button
-              type="submit"
-              id="authSubmit"
-              class="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-dark transition-colors mb-4"
-            >
-              Đăng nhập
-            </button>
-          </form>
-
-          <div class="text-center">
-            <button
-              id="authToggle"
-              onclick="toggleAuthMode()"
-              class="text-accent hover:text-accent-dark text-sm"
-            >
-              Chưa có tài khoản? Đăng ký ngay
-            </button>
-          </div>
-
-          <div class="text-center mt-4">
-            <button
-              onclick="showHome()"
-              class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-sm"
-            >
-              ← Quay lại trang chủ
-            </button>
-          </div>
-        </div>
       </div>
     </main>
 
     <script>
-      // Global State
-      let currentUser = null;
-      let isLoginMode = true;
-      let currentBlogId = null;
-      let currentPage = 1;
-      const blogsPerPage = 5;
+      // ===== BIẾN TOÀN CỤC - Lưu trạng thái của website =====
+      let currentBlogId = null; // ID của blog đang xem (null = đang ở trang chủ)
+      let currentPage = 1; // Trang hiện tại trong phân trang
+      const blogsPerPage = 5; // Số blog hiển thị mỗi trang
 
-      // Sample Data
-      let blogs = [
-        {
-          id: 1,
+      // ===== CÁC HÀM TẠO BLOG - Mỗi blog một hàm riêng để dễ quản lý =====
+      // Muốn xóa blog nào thì xóa hàm đó và bỏ khỏi mảng blogs ở dưới
+      // BLOG 1: Bài viết về cách sống chung hòa thuận
+      function getBlog1() {
+        return {
+          id: 1, // ID duy nhất của blog (dùng để phân biệt các blog)
+          title: "7 nguyên tắc khi ở chung với nhiều người", // Tiêu đề hiển thị
+          description:
+            "Ở chung là cùng sống trong một phạm vi nhất định, mà ở đó mọi người chia sẻ không gian, chia sẻ sinh hoạt, và đôi khi… chia sẻ cả sự bực mình của nhau. Chuyện này thường gặp ở trọ ghép, trong ký túc xá (KTX), hoặc khi bạn học cấp 3, đại học và phải xa nhà.", // Mô tả ngắn hiển thị ở trang chủ
+          content: `<h1>7 nguyên tắc khi ở chung với nhiều người</h1>
+                         <p>Ở chung là cùng sống trong một phạm vi nhất định, mà ở đó mọi người chia sẻ không gian, chia sẻ sinh hoạt, và đôi khi… chia sẻ cả sự bực mình của nhau. Chuyện này thường gặp ở trọ ghép, trong ký túc xá (KTX), hoặc khi bạn học cấp 3, đại học và phải xa nhà.</p>
+
+                         <p>Ở chung không khó, cái khó là sống sao để mọi người đều cảm thấy thoải mái, tôn trọng nhau, và quan trọng là… không ai âm thầm "bỏ phiếu" loại bạn khỏi vòng sống chung. Tin tớ đi, nếu mất thiện cảm ngay từ mấy tuần đầu thì bạn sẽ thấy mỗi ngày ở chung giống như chơi "game sinh tồn" mà chẳng có nút thoát.</p>
+
+                         <p>Sau vài năm sống KTX, ở trọ, và chứng kiến đủ loại drama từ siêu nhỏ (ai ăn vụng sữa chua của ai) đến siêu to khổng lồ (chia phe cãi nhau vì cái… thùng rác), tớ đã đúc rút ra 7 nguyên tắc vàng. Áp dụng được thì đảm bảo bạn sống sạch, sống yên, tình bạn vẫn nguyên vẹn.</p>
+
+                         <h2>1. Nguyên tắc "Của ai người nấy giữ"</h2>
+                         <p>Đây là nguyên tắc số 1, quan trọng nhất. Đồ của ai thì người đó giữ, muốn dùng thì xin phép trước. Đừng có tự nhiên lấy đồ người khác dùng rồi nghĩ "ừm, chắc họ không sao đâu". Không đâu bạn ơi, có sao đấy!</p>
+
+                         <h2>2. Dọn dẹp sau khi sử dụng</h2>
+                         <p>Xài xong thì dọn. Nấu ăn xong thì rửa bát. Tắm xong thì lau sàn. Đơn giản vậy thôi. Đừng để người khác phải dọn dẹp đống mess mà bạn tạo ra.</p>
+
+                         <h2>3. Tôn trọng giờ giấc nghỉ ngơi</h2>
+                         <p>Sau 10h tối thì hạn chế gây ồn. Không bật nhạc to, không nói chuyện điện thoại ầm ĩ, không xem phim không tai nghe. Người ta cần ngủ để mai đi làm, đi học đấy.</p>
+
+                         <h2>4. Chia sẻ chi phí chung một cách minh bạch</h2>
+                         <p>Tiền điện, nước, wifi, đồ dùng chung... tất cả phải chia đều và minh bạch. Lập một cái bảng chi tiêu, ai đóng bao nhiêu, còn nợ bao nhiêu. Đừng để chuyện tiền bạc làm hỏng tình cảm.</p>
+
+                         <h2>5. Giao tiếp thẳng thắn nhưng lịch sự</h2>
+                         <p>Có vấn đề gì thì nói thẳng, đừng dồn nén rồi bùng nổ. Nhưng nói phải lịch sự, tôn trọng. "Bạn ơi, mình thấy..." thay vì "Tao bảo mày..."</p>
+
+                         <h2>6. Tạo không gian riêng tư cho nhau</h2>
+                         <p>Dù ở chung nhưng mỗi người vẫn cần có không gian riêng. Đừng tò mò về chuyện cá nhân của người khác, đừng động vào đồ đạc riêng, và biết lúc nào nên "biến mất" để người ta có thể thoải mái.</p>
+
+                         <h2>7. Linh hoạt và thông cảm</h2>
+                         <p>Cuối cùng, hãy linh hoạt. Đôi khi người ta có việc đột xuất, có lúc ai đó cũng sẽ làm phiền bạn. Thông cảm cho nhau, đừng quá khắt khe với những quy tắc nhỏ nhặt.</p>
+
+                         <blockquote>Sống chung không phải là cuộc thi ai sống "đúng" hơn, mà là nghệ thuật cùng nhau tạo ra một không gian thoải mái cho tất cả mọi người.</blockquote>
+
+                         <p>Nhớ nhé, mục tiêu của việc ở chung không phải là trở thành bạn thân của nhau (dù điều đó rất tuyệt), mà là tạo ra một môi trường sống thoải mái, tôn trọng lẫn nhau. Áp dụng 7 nguyên tắc này, tớ đảm bảo cuộc sống chung của bạn sẽ suôn sẻ hơn rất nhiều!</p>`,
+          // Ảnh đại diện cho blog (dùng SVG tự tạo - không cần file ảnh thật)
+          image:
+            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+          date: "20 tháng 12, 2024", // Ngày đăng bài
+          readTime: "6 phút đọc", // Thời gian đọc ước tính
+          comments: [], // Mảng chứa bình luận (rỗng = chưa có bình luận)
+        };
+      }
+
+      // BLOG 2: Bài viết về lối sống tối giản
+      function getBlog2() {
+        return {
+          id: 2, // ID blog thứ 2
           title: "Khám phá sức mạnh của Minimalism",
           description:
             "Minimalism không chỉ là về việc sở hữu ít đồ đạc, mà còn là triết lý sống giúp chúng ta tập trung vào những gì thực sự quan trọng.",
           content: `<h1>Khám phá sức mạnh của Minimalism</h1>
-                         <p>Trong thế giới hiện đại đầy ắp những thứ không cần thiết, minimalism đã trở thành một xu hướng sống được nhiều người quan tâm...</p>
+                         <p>Trong thế giới hiện đại đầy ắp những thứ không cần thiết, minimalism đã trở thành một xu hướng sống được nhiều người quan tâm. Đây không chỉ đơn thuần là việc sở hữu ít đồ đạc, mà còn là một triết lý sống sâu sắc.</p>
                          <blockquote>"Sự đơn giản là sự tinh tế tối thượng" - Leonardo da Vinci</blockquote>
-                         <p>Minimalism giúp chúng ta loại bỏ những thứ không cần thiết để tập trung vào những gì thực sự mang lại giá trị cho cuộc sống.</p>`,
+                         <h2>Minimalism là gì?</h2>
+                         <p>Minimalism giúp chúng ta loại bỏ những thứ không cần thiết để tập trung vào những gì thực sự mang lại giá trị cho cuộc sống. Đó có thể là mối quan hệ, sở thích, công việc hay những trải nghiệm ý nghĩa.</p>
+                         <h2>Lợi ích của lối sống tối giản</h2>
+                         <p>Khi áp dụng minimalism, bạn sẽ cảm thấy tâm trí thanh thản hơn, có nhiều thời gian hơn cho những việc quan trọng và giảm bớt căng thẳng trong cuộc sống hàng ngày.</p>`,
           image:
-            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23F3F4F6'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%23374151'%3EMinimalism%3C/text%3E%3C/svg%3E",
+            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop",
           date: "15 tháng 12, 2024",
           readTime: "5 phút đọc",
           comments: [
@@ -937,29 +477,168 @@
               pinned: false,
             },
           ],
-        },
-        {
-          id: 2,
+        };
+      }
+
+      // BLOG 3: Bài viết về học lập trình
+      function getBlog3() {
+        return {
+          id: 3, // ID blog thứ 3
           title: "Hành trình học lập trình từ con số 0",
           description:
-            "Chia sẻ kinh nghiệm học lập trình từ những ngày đầu không biết gì đến khi có thể tự tin làm việc với code.",
-          content: `<h1>Hành trình học lập trình từ con số 0</h1>
-                         <p>Cách đây 2 năm, tôi là một người hoàn toàn không biết gì về lập trình. Hôm nay, tôi muốn chia sẻ hành trình đó với các bạn...</p>
-                         <h2>Những ngày đầu khó khăn</h2>
-                         <p>Việc học lập trình không hề dễ dàng. Có những lúc tôi muốn bỏ cuộc vì cảm thấy mọi thứ quá phức tạp...</p>`,
+            "Mặc dù là một học sinh chuyên tin ở thời điểm hiện tại, dù vậy trong quá khứ mình   đã từng vật lộn chỉ để fix vài cái bug nhỏ, đến những cấu trúc tưởng đơn giản nhưng mà không xong, khoảng thời gian đó.",
+          content: `<h1>Hành Trình Học Lập Trình Từ Con Số 0</h1>
+                    <p> Mặc dù là một học sinh chuyên Tin ở thời điểm hiện tại, nhưng cách đây khoảng 5 năm mình đã từng rất vật lộn để tự nghĩ, tự giải các bài toán của lập trình. Thật sự lúc đó, với mình, mỗi lần code là một cực hình, bởi vì kỹ năng còn kém, mình đọc code còn chưa hiểu nó làm gì, chứ đừng nói là có thể làm lại theo. Dẫu vậy, mình đã kiên trì theo đuổi nó. Đến khi nhìn lại toàn bộ cuộc hành trình, mình thầm biết ơn bản thân với những ước mơ chưa từng dập tắt đó.</p>
+
+                    <h2>1.Cơ Duyên Với Việc Học Lập Trình</h2>
+                    <p> Vào khoảng thời gian chuyển cấp giữa cấp 1 và cấp 2, lúc đó dù tâm hồn khá ngây thơ nhưng lại thích quan sát thế giới, mình nghĩ ra vô số câu hỏi trong đầu mà đại loại như:</p>
+                    <ul>
+                    <li>“Chơi game như này, thì người ta làm ra game cho mình chơi kiểu gì nhỉ?”</li>
+                    <li>Thậm chí còn vô tri hơn: “Có bố mẹ của game đẻ ra game không ta? Không đúng, mình được học ở cấp một là có một số vật chất không có khả năng sinh sản mà.”</li>
+                    </ul>
+                    <p> Sự tò mò ấy đã thôi thúc mình đi tìm câu trả lời trên mạng, và tất cả chúng đều dẫn đến một điểm chung duy nhất: <strong>Tin học và Lập trình</strong>.</p>
+                    <p>(Bật mí cho các bạn là mình biết dùng máy tính từ năm 5 tuổi đó nha)</p>
+                    <p> Thật ra thì mảng công nghệ vốn rất rộng, nhưng dù vậy, mình cũng chỉ biết đến lập trình mà thôi. Mình tò mò và bắt đầu học lập trình trên mạng, mình bắt đầu với những từ khóa như: <em>“Lập trình cơ bản cho người mới bắt đầu”</em>. Mình học theo các video dạng tương tự, và từ đó <strong>hành trình theo đuổi lập trình bắt đầu</strong>.</p>
+
+                    <h2>2. Thời Điểm Bắt Đầu</h2>
+                    <p> Mình không hề biết gì về cách hoạt động của các máy tính như CPU, GPU, RAM và bộ nhớ. Mình chỉ biết là máy tính hiểu mã nhị phân, và ngôn ngữ lập trình sẽ dịch chúng thành 0 và 1 để máy đọc và hiểu. Mình chỉ biết vậy thôi.</p>
+                    <p> Lúc đó thì mình rất miệt mài học theo các video cơ bản, và rồi mình dừng lại, không học nữa.</p>
+                    <p> Học vấn của mình lúc mới lên cấp 2 dù khá ấn tượng nhưng thành tích thì không tốt một chút nào. Mình đã có không ít lần bị mời phụ huynh trực tiếp lên, và điểm số thì cũng tỉ lệ nghịch với số lần bị gọi đó.</p>
+                    <p> Mình học rất tệ. Bố mẹ của mình dù luôn thông cảm và nói với mình rằng: <em>“Không sao con ạ, con đã làm tốt rồi.”</em></p>
+                    <p> Dẫu không nói, mình vẫn biết rằng thành tích của mình rất đáng lo ngại, nếu không muốn nói là có nguy cơ <strong>“trượt lớp chọn”</strong>.</p>
+                    <p> Mình từ bỏ một số thói quen ngoài việc học, thay vào đó thì mình tập trung học theo châm ngôn:</p>
+                    <blockquote>“Hiểu rồi thì làm, làm sai thì sửa, đúng thì học tiếp, chưa đúng thì học lại.”</blockquote>
+                    <p> Mình đã học tốt lên một chút. GPA của mình được kéo từ <strong>7.3</strong> lên <strong>8.3</strong>. Dù không phải là quá giỏi nhưng nó có thể gọi là có tiến bộ.</p>
+
+                    <h2>3. Một Vài Bước Ngoặt Trong Cuộc Đời</h2>
+                    <p> Lên lớp 8, mình được học về lập trình Pascal, và mình nói thật, ngôn ngữ này rất ức chế người dùng vì nó quá chặt, khiến mọi logic và ý tưởng trở nên khó tưởng tượng hơn rất nhiều. Mặc dù vậy, với lượng kinh nghiệm có sẵn từ trước, mình nhanh chóng hoàn thành nó khá dễ dàng, và có lẽ vì thế, trong năm đó điểm GPA Tin của mình cũng đạt tuyệt đối <strong>10/10</strong>. Đây cũng là năm cuối mình học Tin chính thức trong trường.</p>
+
+                    <p> Gần cuối năm lớp 8, kỳ thi <strong>Tin Học Trẻ cấp tỉnh</strong> được tổ chức tại tỉnh mình. Lúc đó thì 3 bạn giỏi nhất lớp được cô lựa chọn tham gia kỳ thi. Khá đáng tiếc, mình chỉ là một người bình thường nên cô không ngó ngàng tới.</p>
+
+                    <p> Bạn đứng thứ 3 có vẻ khá tự ti về bản thân khi mà… bạn ấy không thể lập trình được như mình. Mình khá khó hiểu và có phần không muốn hiểu, rõ ràng là bạn ấy học không đến nỗi nào cơ mà.</p>
+
+                    <p> Trong năm đó thì bộ phim <em>Chiếc Bật Lửa Và Váy Công Chúa</em> được phát sóng. Và có vẻ Thủ Khoa Lý Tuân – một nhân vật trong phim – rất được một số bạn nữ trong lớp mình ưa thích. Có tình tiết anh ta lập trình nên trái tim, lãng mạn thật. Mình cũng ước được làm nữ chính luôn ^^.</p>
+
+                    <p> Được rồi, một bạn nữ trong lớp có hỏi mình có thể làm được trái tim giống anh Thủ Khoa Lý Tuân không. Thật ra thì nếu bảo làm như thủ khoa mà không có code thì hơi khoai đấy. May mắn là code có sẵn, mình chỉ việc clone về máy và rồi chỉnh sửa sao cho phù hợp thôi.</p>
+
+                    <p> Nhờ lúc đó, thì cái bạn hạng 3 lớp có đến tâm sự và nhờ mình chỉ dạy. Mặc dù mình dạy khá đơn giản, nhưng mà… có vẻ bạn ấy bỏ cuộc rồi.</p>
+
+                    <p> Vài hôm sau thì bạn ấy có nói rằng sẽ nhường mình đi. Mình thẳng thắn từ chối vì rõ ràng, nếu nhận thì không khác nào vứt bỏ danh dự; còn bạn ấy thì như vứt bỏ cơ hội.</p>
+
+                    <p> Vài hôm sau nữa thì giáo viên Tin có bảo rằng để mình lên thay, và câu nói của cô rất đơn giản:</p>
+                    <blockquote>“Bạn ấy giỏi thật, nhưng chưa đủ khả năng để làm những bài toán ấy, em đi thay nhé!”</blockquote>
+
+                    <p> Mặc dù không tin nhưng mình cũng chẳng còn lựa chọn nào, vì nếu không đạt tối thiểu 3 người đi thì Sở sẽ không cho đoàn huyện của mình tham gia.</p>`,
           image:
-            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23EFF6FF'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%233B82F6'%3ECoding%3C/text%3E%3C/svg%3E",
+            "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
           date: "10 tháng 12, 2024",
           readTime: "8 phút đọc",
+          comments: [
+            {
+              id: 1,
+              name: "Tuấn Anh",
+              content:
+                "Cảm ơn bạn đã chia sẻ! Mình cũng đang trong giai đoạn học lập trình và cảm thấy rất có động lực.",
+              date: "11 tháng 12, 2024",
+              pinned: false,
+            },
+          ],
+        };
+      }
+
+      // BLOG 4: Bài viết về quản lý thời gian
+      function getBlog4() {
+        return {
+          id: 4, // ID blog thứ 4
+          title: "Nghệ thuật quản lý thời gian hiệu quả",
+          description:
+            "Khám phá những phương pháp quản lý thời gian đã được chứng minh hiệu quả để tăng năng suất và cân bằng cuộc sống.",
+          content: `<h1>Nghệ thuật quản lý thời gian hiệu quả</h1>
+                         <p>Thời gian là tài nguyên quý giá nhất mà chúng ta có. Việc quản lý thời gian hiệu quả không chỉ giúp tăng năng suất mà còn mang lại cảm giác kiểm soát cuộc sống.</p>
+                         <h2>Phương pháp Pomodoro</h2>
+                         <p>Chia công việc thành các khoảng thời gian 25 phút tập trung cao độ, sau đó nghỉ 5 phút. Đây là một trong những phương pháp được ưa chuộng nhất.</p>
+                         <h2>Ma trận Eisenhower</h2>
+                         <p>Phân loại công việc theo 4 nhóm: Quan trọng & Khẩn cấp, Quan trọng & Không khẩn cấp, Không quan trọng & Khẩn cấp, Không quan trọng & Không khẩn cấp.</p>
+                         <blockquote>Thời gian không chờ đợi ai. Hãy sử dụng nó một cách khôn ngoan.</blockquote>`,
+          image:
+            "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+          date: "5 tháng 12, 2024",
+          readTime: "6 phút đọc",
           comments: [],
-        },
+        };
+      }
+
+      // BLOG 5: Bài viết về tầm quan trọng của việc đọc sách
+      function getBlog5() {
+        return {
+          id: 5, // ID blog thứ 5
+          title: "Tại sao đọc sách lại quan trọng trong thời đại số?",
+          description:
+            "Trong kỷ nguyên thông tin bùng nổ, việc đọc sách vẫn giữ vai trò không thể thay thế trong việc phát triển tư duy và kiến thức.",
+          content: `<h1>Tại sao đọc sách lại quan trọng trong thời đại số?</h1>
+                         <p>Dù công nghệ phát triển vượt bậc, việc đọc sách vẫn là một trong những cách tốt nhất để mở rộng kiến thức và phát triển tư duy phản biện.</p>
+                         <h2>Lợi ích của việc đọc sách</h2>
+                         <p>Đọc sách giúp cải thiện khả năng tập trung, mở rộng vốn từ vựng, phát triển trí tưởng tượng và giảm stress hiệu quả.</p>
+                         <h2>Cách xây dựng thói quen đọc</h2>
+                         <p>Bắt đầu với 15-20 phút mỗi ngày, chọn sách phù hợp với sở thích và tạo không gian đọc thoải mái.</p>
+                         <blockquote>Một cuốn sách là một giấc mơ mà bạn cầm trong tay - Neil Gaiman</blockquote>`,
+          image:
+            "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=400&fit=crop",
+          date: "1 tháng 12, 2024",
+          readTime: "4 phút đọc",
+          comments: [
+            {
+              id: 1,
+              name: "Lan Hương",
+              content:
+                "Mình rất đồng ý! Đọc sách giúp mình có những góc nhìn mới về cuộc sống.",
+              date: "2 tháng 12, 2024",
+              pinned: false,
+            },
+          ],
+        };
+      }
+
+      // BLOG 6: Bài viết về ẩm thực Việt Nam
+      function getBlog6() {
+        return {
+          id: 6, // ID blog thứ 6
+          title: "Khám phá ẩm thực Việt Nam qua từng miền",
+          description:
+            "Hành trình khám phá những món ăn đặc trưng của ba miền Bắc - Trung - Nam, từ phở Hà Nội đến bún bò Huế và bánh xèo miền Tây.",
+          content: `<h1>Khám phá ẩm thực Việt Nam qua từng miền</h1>
+                         <p>Ẩm thực Việt Nam nổi tiếng thế giới với sự đa dạng và phong phú. Mỗi miền có những đặc trưng riêng biệt, tạo nên bức tranh ẩm thực đầy màu sắc.</p>
+                         <h2>Miền Bắc - Tinh tế và thanh đạm</h2>
+                         <p>Phở, bún chả, bánh cuốn... những món ăn miền Bắc thường có hương vị thanh đạm, tinh tế và chú trọng vào sự cân bằng.</p>
+                         <h2>Miền Trung - Đậm đà và cay nồng</h2>
+                         <p>Bún bò Huế, mì Quảng, bánh khoái... ẩm thực miền Trung nổi bật với hương vị đậm đà, cay nồng và màu sắc rực rỡ.</p>
+                         <h2>Miền Nam - Ngọt ngào và đa dạng</h2>
+                         <p>Bánh xèo, hủ tiếu, cơm tấm... món ăn miền Nam thường có vị ngọt tự nhiên và sự kết hợp đa dạng của các nguyên liệu.</p>`,
+          image:
+            "https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&h=400&fit=crop",
+          date: "25 tháng 11, 2024",
+          readTime: "7 phút đọc",
+          comments: [],
+        };
+      }
+
+      // ===== DANH SÁCH TẤT CẢ BLOG =====
+      // Mảng này chứa tất cả blog của website
+      // Muốn thêm blog mới: tạo hàm getBlog7() rồi thêm getBlog7() vào mảng này
+      // Muốn xóa blog: bỏ dòng tương ứng khỏi mảng này
+      let blogs = [
+        getBlog3(), // Blog về học lập trình (ID: 3)
+        getBlog2(), // Blog về minimalism (ID: 2)
+        getBlog1(), // Blog về sống chung (ID: 1)
       ];
 
+      // ===== THÔNG TIN CÁ NHÂN =====
+      // Đây là thông tin hiển thị ở sidebar và trang giới thiệu
       let profile = {
-        name: "My Blog",
-        bio: "Chào mừng đến với blog cá nhân của tôi! Nơi tôi chia sẻ những suy nghĩ, trải nghiệm và kiến thức về cuộc sống.",
+        name: "Duy Khánh",
+        bio: "Hello! Mình là Duy Khánh, một cậu học trò nhỏ có niềm đam mê với Khoa học. Đây là nơi mình chia sẻ những sở thích cá nhân và những thứ khác trong cuộc sống",
         image:
-          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%236366F1'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='30' fill='white'%3EMB%3C/text%3E%3C/svg%3E",
+          "https://lh3.googleusercontent.com/a/ACg8ocKHaDxR29_7lvDcQjEAgPbhW81ByFqa1jk31hVldh38Ev0p_Vhe=s360-c-no",
         socialLinks: {
           facebook: "https://facebook.com/myblog",
           instagram: "https://instagram.com/myblog",
@@ -972,7 +651,8 @@
         },
       };
 
-      // Theme Management
+      // ===== QUẢN LÝ GIAO DIỆN SÁNG/TỐI =====
+      // Khởi tạo theme từ bộ nhớ trình duyệt
       function initTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
         if (savedTheme === "dark") {
@@ -982,38 +662,45 @@
         }
       }
 
+      // Chuyển đổi giữa giao diện sáng và tối
       function toggleTheme() {
-        const html = document.documentElement;
-        const themeToggle = document.getElementById("themeToggle");
+        const html = document.documentElement; // Lấy thẻ <html>
+        const themeToggle = document.getElementById("themeToggle"); // Nút chuyển đổi
 
+        // Kiểm tra đang ở chế độ tối hay sáng
         if (html.classList.contains("dark")) {
+          // Đang tối -> chuyển sang sáng
           html.classList.remove("dark");
           themeToggle.innerHTML =
             '<i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>';
-          localStorage.setItem("theme", "light");
+          localStorage.setItem("theme", "light"); // Lưu vào bộ nhớ
         } else {
+          // Đang sáng -> chuyển sang tối
           html.classList.add("dark");
           themeToggle.innerHTML =
             '<i class="fas fa-sun text-gray-600 dark:text-gray-300"></i>';
-          localStorage.setItem("theme", "dark");
+          localStorage.setItem("theme", "dark"); // Lưu vào bộ nhớ
         }
       }
 
-      // Font Management
+      // ===== QUẢN LÝ FONT CHỮ =====
+      // Khởi tạo font từ bộ nhớ trình duyệt
       function initFont() {
-        const savedFont = localStorage.getItem("font") || "inter";
-        document.getElementById("fontSelector").value = savedFont;
-        applyFont(savedFont);
+        const savedFont = localStorage.getItem("font") || "inter"; // Mặc định là Inter
+        document.getElementById("fontSelector").value = savedFont; // Cập nhật dropdown
+        applyFont(savedFont); // Áp dụng font
       }
 
+      // Áp dụng font được chọn cho toàn bộ website
       function applyFont(fontFamily) {
         const body = document.getElementById("body");
-        body.className = body.className.replace(/font-\w+/g, "");
-        body.classList.add(`font-${fontFamily}`);
-        localStorage.setItem("font", fontFamily);
+        body.className = body.className.replace(/font-\w+/g, ""); // Xóa font cũ
+        body.classList.add(`font-${fontFamily}`); // Thêm font mới
+        localStorage.setItem("font", fontFamily); // Lưu vào bộ nhớ
       }
 
-      // Search Functionality
+      // ===== CHỨC NĂNG TÌM KIẾM =====
+      // Khởi tạo tính năng tìm kiếm blog
       function initSearch() {
         const searchInput = document.getElementById("searchInput");
         const searchResults = document.getElementById("searchResults");
@@ -1067,11 +754,12 @@
         });
       }
 
-      // Navigation Functions
+      // ===== CÁC HÀM ĐIỀU HƯỚNG TRANG =====
+      // Hiển thị trang chủ (danh sách blog)
       function showHome() {
-        hideAllPages();
-        document.getElementById("homePage").classList.remove("hidden");
-        renderBlogs();
+        hideAllPages(); // Ẩn tất cả trang khác
+        document.getElementById("homePage").classList.remove("hidden"); // Hiện trang chủ
+        renderBlogs(); // Vẽ lại danh sách blog
       }
 
       function showBlogDetail(blogId) {
@@ -1091,7 +779,9 @@
                         <span>${blog.readTime}</span>
                     </div>
                 </div>
-                ${blog.content}
+                <div class="blog-content-styling">
+                    ${blog.content}
+                </div>
             `;
 
         renderComments(blog.comments);
@@ -1104,57 +794,8 @@
         updateAboutPage();
       }
 
-      function showProfile() {
-        showAbout();
-      }
-
-      function showProfileEdit() {
-        if (!currentUser) return;
-        hideAllPages();
-        document.getElementById("profileEditPage").classList.remove("hidden");
-
-        document.getElementById("nameInput").value = profile.name;
-        document.getElementById("bioInput").value = profile.bio;
-
-        // Load social links
-        document.getElementById("facebookInput").value =
-          profile.socialLinks.facebook || "";
-        document.getElementById("instagramInput").value =
-          profile.socialLinks.instagram || "";
-        document.getElementById("youtubeInput").value =
-          profile.socialLinks.youtube || "";
-        document.getElementById("twitterInput").value =
-          profile.socialLinks.twitter || "";
-        document.getElementById("linkedinInput").value =
-          profile.socialLinks.linkedin || "";
-        document.getElementById("githubInput").value =
-          profile.socialLinks.github || "";
-        document.getElementById("websiteInput").value =
-          profile.socialLinks.website || "";
-        document.getElementById("emailInput").value =
-          profile.socialLinks.email || "";
-      }
-
-      function showCreateBlog() {
-        if (!currentUser) return;
-        hideAllPages();
-        document.getElementById("createBlogPage").classList.remove("hidden");
-      }
-
-      function showLogin() {
-        hideAllPages();
-        document.getElementById("loginPage").classList.remove("hidden");
-      }
-
       function hideAllPages() {
-        const pages = [
-          "homePage",
-          "blogDetailPage",
-          "aboutPage",
-          "profileEditPage",
-          "createBlogPage",
-          "loginPage",
-        ];
+        const pages = ["homePage", "blogDetailPage", "aboutPage"];
         pages.forEach((pageId) => {
           document.getElementById(pageId).classList.add("hidden");
         });
@@ -1307,18 +948,6 @@
                                     ? '<span class="bg-accent text-white text-xs px-2 py-1 rounded">Ghim</span>'
                                     : ""
                                 }
-                                ${
-                                  currentUser
-                                    ? `
-                                    <button onclick="togglePinComment(${comment.id})" class="text-xs text-gray-500 hover:text-accent">
-                                        <i class="fas fa-thumbtack"></i>
-                                    </button>
-                                    <button onclick="deleteComment(${comment.id})" class="text-xs text-red-500 hover:text-red-700">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                `
-                                    : ""
-                                }
                             </div>
                             <p class="text-gray-700 dark:text-gray-300 mb-2">${
                               comment.content
@@ -1338,13 +967,6 @@
         document.getElementById("aboutProfileImg").src = profile.image;
         document.getElementById("aboutProfileName").textContent = profile.name;
         document.getElementById("aboutProfileBio").textContent = profile.bio;
-
-        const editBtn = document.getElementById("editProfileBtn");
-        if (currentUser) {
-          editBtn.classList.remove("hidden");
-        } else {
-          editBtn.classList.add("hidden");
-        }
       }
 
       function updateProfile() {
@@ -1432,204 +1054,6 @@
         }
       }
 
-      // Authentication
-      function updateAuthState() {
-        const userMenu = document.getElementById("userMenu");
-        const loginBtn = document.getElementById("loginBtn");
-        const adminControls = document.getElementById("adminControls");
-
-        if (currentUser) {
-          userMenu.classList.remove("hidden");
-          loginBtn.classList.add("hidden");
-          adminControls.classList.remove("hidden");
-          document.getElementById("userAvatar").src = profile.image;
-        } else {
-          userMenu.classList.add("hidden");
-          loginBtn.classList.remove("hidden");
-          adminControls.classList.add("hidden");
-        }
-      }
-
-      function login() {
-        // Simulate login - in real app, this would validate credentials
-        currentUser = { id: 1, name: profile.name, email: "admin@blog.com" };
-        updateAuthState();
-        showHome();
-      }
-
-      function logout() {
-        currentUser = null;
-        updateAuthState();
-        showHome();
-      }
-
-      function toggleAuthMode() {
-        isLoginMode = !isLoginMode;
-        const title = document.getElementById("authTitle");
-        const submitBtn = document.getElementById("authSubmit");
-        const toggleBtn = document.getElementById("authToggle");
-        const registerFields = document.getElementById("registerFields");
-
-        if (isLoginMode) {
-          title.textContent = "Đăng nhập";
-          submitBtn.textContent = "Đăng nhập";
-          toggleBtn.textContent = "Chưa có tài khoản? Đăng ký ngay";
-          registerFields.classList.add("hidden");
-        } else {
-          title.textContent = "Đăng ký";
-          submitBtn.textContent = "Đăng ký";
-          toggleBtn.textContent = "Đã có tài khoản? Đăng nhập";
-          registerFields.classList.remove("hidden");
-        }
-      }
-
-      // Rich Text Editor Functions
-      function formatText(command) {
-        document.execCommand(command, false, null);
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function changeFontFamily() {
-        const fontFamily = document.getElementById("fontFamilySelect").value;
-        document.execCommand("fontName", false, fontFamily);
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function changeFontSize() {
-        const fontSize = document.getElementById("fontSizeSelect").value;
-        document.execCommand("fontSize", false, "7");
-        const fontElements = document
-          .getElementById("blogContentEditor")
-          .querySelectorAll('font[size="7"]');
-        fontElements.forEach((element) => {
-          element.removeAttribute("size");
-          element.style.fontSize = fontSize;
-        });
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function changeTextColor() {
-        const color = document.getElementById("textColorPicker").value;
-        document.execCommand("foreColor", false, color);
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function changeBackgroundColor() {
-        const color = document.getElementById("bgColorPicker").value;
-        document.execCommand("hiliteColor", false, color);
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function insertHeading(tag) {
-        if (!tag) return;
-
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          const heading = document.createElement(tag);
-          heading.className = getHeadingClass(tag);
-
-          try {
-            range.surroundContents(heading);
-          } catch (e) {
-            heading.appendChild(range.extractContents());
-            range.insertNode(heading);
-          }
-        }
-
-        // Reset select
-        event.target.value = "";
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function getHeadingClass(tag) {
-        const classes = {
-          h1: "text-3xl font-bold my-4",
-          h2: "text-2xl font-bold my-3",
-          h3: "text-xl font-bold my-3",
-          h4: "text-lg font-bold my-2",
-        };
-        return classes[tag] || "";
-      }
-
-      function insertQuote() {
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          const blockquote = document.createElement("blockquote");
-          blockquote.className =
-            "border-l-4 border-accent pl-4 italic my-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-r-lg";
-
-          try {
-            range.surroundContents(blockquote);
-          } catch (e) {
-            blockquote.appendChild(range.extractContents());
-            range.insertNode(blockquote);
-          }
-        }
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function insertLink() {
-        const url = prompt("Nhập URL:");
-        if (url) {
-          const text =
-            window.getSelection().toString() ||
-            prompt("Nhập text hiển thị:") ||
-            url;
-          const link = `<a href="${url}" class="text-accent hover:text-accent-dark underline" target="_blank">${text}</a>`;
-          document.execCommand("insertHTML", false, link);
-        }
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function insertImage() {
-        const url = prompt("Nhập URL hình ảnh:");
-        if (url) {
-          const alt = prompt("Nhập mô tả hình ảnh (alt text):") || "Image";
-          const img = `<img src="${url}" alt="${alt}" class="max-w-full h-auto rounded-lg my-4 mx-auto block">`;
-          document.execCommand("insertHTML", false, img);
-        }
-        document.getElementById("blogContentEditor").focus();
-      }
-
-      function saveDraft() {
-        const title = document.getElementById("blogTitle").value;
-        const description = document.getElementById("blogDescription").value;
-        const content = document.getElementById("blogContentEditor").innerHTML;
-
-        localStorage.setItem(
-          "blogDraft",
-          JSON.stringify({
-            title,
-            description,
-            content,
-            timestamp: new Date().toISOString(),
-          })
-        );
-
-        alert("Đã lưu bản nháp!");
-      }
-
-      // Comment Functions
-      function togglePinComment(commentId) {
-        const blog = blogs.find((b) => b.id === currentBlogId);
-        const comment = blog.comments.find((c) => c.id === commentId);
-        comment.pinned = !comment.pinned;
-
-        // Sort comments to show pinned ones first
-        blog.comments.sort((a, b) => b.pinned - a.pinned);
-        renderComments(blog.comments);
-      }
-
-      function deleteComment(commentId) {
-        if (confirm("Bạn có chắc muốn xóa bình luận này?")) {
-          const blog = blogs.find((b) => b.id === currentBlogId);
-          blog.comments = blog.comments.filter((c) => c.id !== commentId);
-          renderComments(blog.comments);
-        }
-      }
-
       // Event Listeners
       document
         .getElementById("themeToggle")
@@ -1638,121 +1062,6 @@
         .getElementById("fontSelector")
         .addEventListener("change", function (e) {
           applyFont(e.target.value);
-        });
-
-      // User menu toggle
-      document
-        .getElementById("userMenuButton")
-        .addEventListener("click", function () {
-          const dropdown = document.getElementById("userDropdown");
-          dropdown.classList.toggle("hidden");
-        });
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function (e) {
-        const userMenu = document.getElementById("userMenu");
-        const dropdown = document.getElementById("userDropdown");
-        if (!userMenu.contains(e.target)) {
-          dropdown.classList.add("hidden");
-        }
-      });
-
-      // Form Handlers
-      document
-        .getElementById("authForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          login(); // Simulate successful login
-        });
-
-      document
-        .getElementById("profileForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          profile.name = document.getElementById("nameInput").value;
-          profile.bio = document.getElementById("bioInput").value;
-
-          // Update social links
-          profile.socialLinks.facebook =
-            document.getElementById("facebookInput").value;
-          profile.socialLinks.instagram =
-            document.getElementById("instagramInput").value;
-          profile.socialLinks.youtube =
-            document.getElementById("youtubeInput").value;
-          profile.socialLinks.twitter =
-            document.getElementById("twitterInput").value;
-          profile.socialLinks.linkedin =
-            document.getElementById("linkedinInput").value;
-          profile.socialLinks.github =
-            document.getElementById("githubInput").value;
-          profile.socialLinks.website =
-            document.getElementById("websiteInput").value;
-          profile.socialLinks.email =
-            document.getElementById("emailInput").value;
-
-          const imageInput = document.getElementById("profileImageInput");
-          if (imageInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              profile.image = e.target.result;
-              updateProfile();
-              updateAboutPage();
-            };
-            reader.readAsDataURL(imageInput.files[0]);
-          } else {
-            updateProfile();
-            updateAboutPage();
-          }
-
-          showAbout();
-        });
-
-      document
-        .getElementById("createBlogForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const title = document.getElementById("blogTitle").value;
-          const description = document.getElementById("blogDescription").value;
-          const content =
-            document.getElementById("blogContentEditor").innerHTML;
-
-          const newBlog = {
-            id: blogs.length + 1,
-            title: title,
-            description: description,
-            content: `<h1>${title}</h1>${content}`,
-            image:
-              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23F3F4F6'/%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='16' fill='%23374151'%3E" +
-              encodeURIComponent(title) +
-              "%3C/text%3E%3C/svg%3E",
-            date: new Date().toLocaleDateString("vi-VN", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }),
-            readTime: Math.ceil(content.split(" ").length / 200) + " phút đọc",
-            comments: [],
-          };
-
-          const imageInput = document.getElementById("blogImageInput");
-          if (imageInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              newBlog.image = e.target.result;
-              blogs.unshift(newBlog);
-              document.getElementById("createBlogForm").reset();
-              document.getElementById("blogContentEditor").innerHTML = "";
-              showHome();
-            };
-            reader.readAsDataURL(imageInput.files[0]);
-          } else {
-            blogs.unshift(newBlog);
-            document.getElementById("createBlogForm").reset();
-            document.getElementById("blogContentEditor").innerHTML = "";
-            showHome();
-          }
         });
 
       document
@@ -1789,7 +1098,6 @@
         initFont();
         initSearch();
         updateProfile();
-        updateAuthState();
         showHome();
       }
 
@@ -1803,7 +1111,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'9717f154c7041076',t:'MTc1NTU4ODU5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'971b0a53e38606e4',t:'MTc1NTYyMTA3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
